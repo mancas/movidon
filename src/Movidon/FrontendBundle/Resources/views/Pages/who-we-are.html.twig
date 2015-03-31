@@ -1,0 +1,55 @@
+{% extends "FrontendBundle:Layouts:1column-simple.html.twig" %}
+
+{% block title %}{{ "Quiénes somos | Clop Sevilla "|trans }}{% endblock %}
+{% block description %}{{"Una tienda que vende pulseras"|trans}}{% endblock %}
+{% block sectionclass %}user page{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="intro">
+        <div class="intro-wrap">
+            <h2>{{ 'Quiénes somos' | trans }}</h2>
+        </div>
+    </div>
+    <div class="col-md-10 col-md-offset-1">
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    Mi nombre es Mamen Rodriguez, <b>www.clopsevilla.es</b> es una tienda online de venta de
+                    productos realizados a mano de un proyecto que empezó hace poco cuando me aficione
+                    a hacer trabajos manuales y proyectos de diseño. Ahora gestiono una tienda online junto
+                    con la tienda física en Sevilla para que desde cualquier lugar de España se pueda adquirir los
+                    productos sin necesidad de desplazamiento.
+                </p>
+
+                <p>
+                    Personalizamos cualquier diseño siempre dentro de las posibilidades que nos permitan los
+                    materiales que en ocasiones son únicos y no permiten su reproducción por segunda vez.
+                </p>
+
+                <p>
+                    Espero que podáis encontrar los productos necesarios para compraros regalos
+                    diferentes, personalizados y realizados a mano, incluso autoregalarte y si no es así
+                    no dudéis en poneros en contacto a través del teléfono <b>(+34) 629 42 76 64</b> o del correo
+                    electrónico <a title="{{ 'Contacta con nosotros' | trans }}" href="mailto:info@clopsevilla.es">info@clopsevilla.es</a>,
+                    para que nos propongáis productos que intentaremos realizaros con la idea que nos propongáis.
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

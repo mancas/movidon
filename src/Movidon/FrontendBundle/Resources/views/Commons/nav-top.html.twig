@@ -1,0 +1,58 @@
+{% set action = app.request.attributes.get('_route') %}
+{% set action_params = app.request.attributes.get('_route_params') %}
+<header>
+    <a class="brand" href="{{ path('frontend_homepage') }}" title="{{ 'Inicio' | trans }}">
+        <img src="{{ asset('bundles/frontend/img/el-cartujano-logo.png') }}" alt="{{ 'Logo de El Cartujano' | trans }}">
+    </a>
+    {% if isEcommerceAction(path(action, action_params)) %}
+    {{ render(controller('CartBundle:Cart:cart')) }}
+    {% endif %}
+</header>
+
+<nav class="navbar cartujano-nav">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li {% if action == 'frontend_homepage' %}class="active"{% endif %}>
+                <a title="{{ 'Nosotros' | trans }}" href="{{ path('frontend_homepage') }}">{{ 'Nosotros' | trans }}</a>
+            </li>
+            <li {% if action == 'view_categories' %}class="active"{% endif %}>
+                <a href="{{ path('view_categories') }}" alt="{{ 'Nuestros productos' | trans }}">{{ 'Productos' | trans }}</a>
+            </li>
+            <li {% if action == 'ecommerce_homepage' %}class="active"{% endif %}>
+                <a href="{{ path('ecommerce_homepage') }}" title="{{ 'Compra nuestros productos' }}">{{ 'Tienda' | trans }}</a>
+            </li>
+            <li {% if action == 'contact' %}class="active"{% endif %}>
+                <a href="{{ path('contact') }}" title="{{ '¿Tienes alguna consulta? Escríbenos' }}">{{ 'Contacta' | trans }}</a>
+            </li>
+        </ul>
+        {% if isEcommerceAction(path(action, action_params)) %}
+            <ul class="nav navbar-nav navbar-right user-access">
+                {% if is_granted('ROLE_USER') %}
+                <li {% if action == 'user_profile' or action == 'user_orders' %}class="active"{% endif %}>
+                    <a title="{{ 'Mi cuenta' | trans }}" href="{{ path('user_profile') }}">
+                        <i class="fa fa-user"></i>
+                        {{ 'Mi cuenta' | trans }}
+                    </a>
+                </li>
+                <li>
+                    <a title="{{ 'Cerrar sesión' | trans }}" href="{{ path('logout') }}">
+                        <i class="fa fa-sign-out"></i>
+                        {{ 'Cerrar sesión' | trans}}
+                    </a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="{{ path('login') }}" class="">
+                        <i class="fa fa-sign-in"></i>
+                        {{ 'Acceder' | trans}}
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        {% else %}
+            <form class="navbar-form navbar-right" role="search" action="{{ path('search') }}" method="post">
+                <input type="text" name="search" placeholder="{{ 'Buscador...' | trans }}">
+            </form>
+        {% endif %}
+    </div>
+</nav>

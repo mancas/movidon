@@ -1,0 +1,37 @@
+{% extends "FrontendBundle:Layouts:1column.html.twig" %}
+
+{% block title %}{{ 'Búsqueda de productos: ' ~ search ~ ' | El Cartujano' | trans }}{% endblock %}
+{% block description %}{{"Nuestros productos son elaborados con los mejores ingredientes."|trans}}{% endblock %}
+{% block sectionclass %}page{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <h1 class="title">{{ 'Resultados para' | trans }} <span class="blue">{{ search }}</span></h1>
+    {% if items | length > 0 %}
+        <div class="row items-list">
+            {% for item in items %}
+                {{ render(controller("ItemBundle:Item:itemBox", {'item': item, 'shipment': null})) }}
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>
+            {{ 'No se han encontrado resultados en nuestro amplio catálogo de productos.' | trans }}
+        </p>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include 'CategoryBundle:Subcategory:item_block_script.html.twig' %}
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+{% endblock %}

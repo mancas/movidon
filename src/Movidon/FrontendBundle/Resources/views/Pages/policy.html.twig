@@ -1,0 +1,64 @@
+{% extends "FrontendBundle:Layouts:1column-simple.html.twig" %}
+
+{% block title %}{{ "Política de privacidad | Clop Sevilla "|trans }}{% endblock %}
+{% block description %}{{"Una tienda que vende pulseras"|trans}}{% endblock %}
+{% block sectionclass %}user page{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="intro">
+        <div class="intro-wrap">
+            <h2>{{ 'Política de privacidad' | trans }}</h2>
+        </div>
+    </div>
+    <div class="col-md-10 col-md-offset-1">
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    Le informamos que los datos que usted nos suministre pasarán a formar parte de un fichero
+                    automatizado de clientes de <b>clopsevilla.es</b>, encontrándose registrado en el <b>Registro General
+                    de Protección de Datos</b> y siendo la titular de <b>clopsevilla.es</b> la única destinataria de dicha
+                    información. <b>clopsevilla.es</b> se compromete a custodiar dichos datos y a no venderlos ni
+                    cederlos a terceros.
+                </p>
+
+                <p>
+                    El tratamiento de dichos datos será de carácter publicitario, estadístico y comercial, siempre
+                    dentro del marco de las actividades propias de clopsevilla.es Nos comprometemos a
+                    mantener la confidencialidad de los datos y a cumplir con todos los requisitos legales en
+                    vigor. Podrá decidir si está interesado en recibir nuestro Boletín con información relativa a
+                    promociones, campañas o productos.
+                </p>
+
+                <p>
+                    En cualquier momento el cliente podrá ejercitar los derechos de acceso, rectificación,
+                    cancelación y oposición de sus datos mandando solicitud por escrito al correo electronico
+                    <a href="mailto:info@clopsevilla.es" title="Contacta con nosotros">info@clopsevilla.es</a>.
+                </p>
+
+                <p>
+                    Los datos que nos proporcione durante el registro son obligatorios y deben ser verdaderos.
+                    <b>clopsevilla.es</b> se reserva el derecho de no aceptar como cliente a cualquier usuario que no
+                    proporcione completamente sus datos o proporciones datos falsos. Es deber del usuario
+                    guardar su contraseña de acceso en lugar seguro. No nos responsabilizamos de problemas
+                    derivados de un uso no autorizado de la contraseña.
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

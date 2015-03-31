@@ -1,0 +1,86 @@
+{% extends "FrontendBundle:Layouts:1column-simple.html.twig" %}
+
+{% block title %}{{ "Términos y condiciones de uso | Clop Sevilla "|trans }}{% endblock %}
+{% block description %}{{"Una tienda que vende pulseras"|trans}}{% endblock %}
+{% block sectionclass %}user page{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="intro">
+        <div class="intro-wrap">
+            <h2>{{ 'Condiciones generales de uso' | trans }}</h2>
+        </div>
+    </div>
+    <div class="col-md-10 col-md-offset-1">
+        <div class="row mb20">
+            <div class="col-md-12">
+                <p>
+                    Las presentes condiciones generales de venta se aplican estrictamente a todas las ventas
+                    de productos efectuadas en <b>España Peninsular</b> y las <b>Islas Baleares</b> por <b>CLOPSEVILLA</b> y
+                    <b>www.clopsevilla.es</b>, con destino a personas físicas.
+                </p>
+
+                <p>
+                    Todo pedido hecho a CLOP implica necesariamente a título de condición esencial,
+                    determinante e imprescindible, la aceptación sin reservas por el Cliente de las <b>Condiciones
+                    Generales de Venta</b> de los artículos vigentes el día en que se lleve a cabo el pedido
+                    correspondiente. Además, el Cliente reconoce que la aceptación de las presentes
+                    condiciones implicará la aplicación de éstas al pedido al que se refieren, así como a todo
+                    pedido posterior, con excepción de aquellos casos en que nuevas condiciones sean puestas
+                    en su conocimiento por CLOP. El hecho que el Cliente no recurra en un momento dado a
+                    cualquiera de las presentes condiciones no puede ser interpretado ni equivaldrá a renunciar
+                    a recurrir a ellas en el futuro o en el pasado.
+                </p>
+
+                <p>
+                    Ley aplicable y jurisdicción competente. La interpretación y la ejecución de las condiciones,
+                    así como todos los actos que se sean consecuencia de ellas, quedarán sometidos al derecho
+                    español vigente y a los Tribunales españoles, salvo que existan disposiciones de orden público
+                    contrarias a ello.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="line-block">
+                    <h2 class="line-title">{{ 'Precios' | trans }}</h2>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <p>
+                    Los precios publicados en <b>www.clopsevilla.es</b> son en <b>euros</b> y son vigentes salvo error
+                    tipográfico. Todos los precios llevan el <b>IVA incluido</b> aplicable en el día de confirmación del
+                    pedido, y <b>no incluyen</b> los gastos de envío.
+                </p>
+
+                <p>
+                   <b>www.clopsevilla.es</b> se reserva el derecho de modificar los precios de venta de los artículos
+                    ofrecidos. En caso de modificación de un precio, se facturaran los productos al precio vigente
+                    en el momento de la confirmación del pedido.
+                </p>
+
+                <p>
+                    Las ofertas sobre productos en venta en <b>www.cclopsevilla.es</b> se mostrarán en el apartado
+                    <a href="" title="{{ 'Ofertas' | trans }}">Ofertas</a> o se indicarán en la ficha del producto y, si no se indica lo contrario, serán válidas
+                    mientras se muestren en la web.
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

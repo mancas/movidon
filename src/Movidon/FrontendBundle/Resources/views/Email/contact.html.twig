@@ -1,0 +1,21 @@
+{% extends 'FrontendBundle:Layouts:email.html.twig' %}
+{% block content_mail %}
+    <table cellpadding="0" cellspacing="0" border="0" style="color: #717171; font: normal 11px Helvetica, Arial, sans-serif; margin: 0; padding: 0 20px 0 20px;" width="690">
+        <tr>
+            <td style="padding: 10px 0 0;" align="left">
+
+                <h2 style="color:#555; font-weight: bold; margin: 0 0 10px 0; padding: 0; line-height: 26px; font-size: 14px; font-family: Helvetica, Arial, sans-serif; ">
+                    {{ "¡" ~ contact.name ~ " ha rellenado el formulario de contacto!"|trans }}
+                </h2>
+
+                <p style="color:#767676; font-weight: normal; margin: 0 0 10px 0; padding: 0; line-height: 20px; font-size: 12px;font-family: Helvetica, Arial, sans-serif; ">
+                    {{ contact.text }}
+                </p>
+
+                <p style="color:#767676; font-weight: normal; margin: 0 0 10px 0; padding: 0; line-height: 20px; font-size: 12px;font-family: Helvetica, Arial, sans-serif; ">
+                    {{ 'Puedes responderle directamente enviándole un email a su dirección de correo electrónico: ' | trans }} {{ contact.email }}
+                </p>
+            </td>
+        </tr>
+    </table>
+{% endblock %}

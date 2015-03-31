@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="description" content="{% block description %}{% endblock %}" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{{asset('bundles/frontend/img/favicon.ico')}}">
+    {% block mainstylesheets %}
+        <link rel="stylesheet" href="{{ asset('bundles/frontend/css/bootstrap.min.css') }}">
+        {% stylesheets filter='cssrewrite, sass' output='css/main.css'
+        'bundles/frontend/css/font-awesome.min.css'
+        'bundles/frontend/css/custom.scss'%}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+    {% endblock %}
+    {% block stylesheets %}{% endblock %}
+    <script src="{{ asset('bundles/frontend/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('bundles/frontend/js/bootstrap.min.js') }}"></script>
+</head>
+<body class="{% block sectionclass %}{% endblock %}">
+
+{% block header %}
+    {% include 'FrontendBundle:Commons:nav-top.html.twig' %}
+    {{ render(controller("FrontendBundle:Frontend:categoryNav")) }}
+    {% include 'CartBundle:Commons:cart-alert.html.twig' %}
+{% endblock %}
+
+<div id="wrap">
+    {% block body %}{% endblock %}
+    <div class="push"></div>
+    {% block footer %}
+        {% include 'FrontendBundle:Commons:footer.html.twig' %}
+    {% endblock %}
+</div>
+{% block javascripts %}
+    {% include 'FrontendBundle:Commons:category-nav-script.html.twig' %}
+{% endblock %}
+</body>
+</html>

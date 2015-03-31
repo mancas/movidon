@@ -1,0 +1,65 @@
+{% extends "FrontendBundle:Layouts:1column-simple.html.twig" %}
+
+{% block title %}{{ "Bienvenido a El Cartujano"|trans }}{% endblock %}
+{% block description %}{{""|trans}}{% endblock %}
+{% block sectionclass %}user-page page{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+   <div class="row">
+       <div class="col-md-10 col-md-offset-2">
+           <h2 class="title">{{ 'Bienvenido a El Cartujano' | trans }}</h2>
+       </div>
+   </div>
+
+    <div class="row login-form">
+        <div class="login-wrap">
+            <div class="col-md-4 col-md-offset-2 login">
+                <form name="login" method="post" action="{{ path('login_check') }}">
+                    <fieldset>
+                        <div class="form-group">
+                            <input type="text" placeholder="Email" class="form-control" id="USERNAME" name="_username">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" placeholder="Contraseña" class="form-control" id="PASSWORD" name="_password">
+                        </div>
+                        <div class="form-group">
+                            <label style="text-align: left;" class="checkbox">
+                                <input type="checkbox" checked="checked" name="_remember_me" id="remember_me">
+                                {{ 'Recuérdame' | trans }}
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-large btn-blue" type="submit">{{ 'Entrar!' | trans }}</button> &nbsp; &nbsp;
+                            <a class="text-12 ml-10" href="{{ path('forgot_password') }}">
+                                {{ 'He olvidado mi contraseña' | trans }}
+                            </a>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="col-md-4 register">
+                <div class="register-wrap">
+                    <p>{{ '¿Eres un nuevo cliente?' | trans }}</p>
+                    <a class="btn btn-success" title="{{ 'Regístrate gratis en El Cartujano' | trans }}" href="{{ path('register') }}">{{ 'Regístrate gratis' | trans }}</a>
+                </div>
+            </div>
+        </div>
+    </div><!-- .row -->
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+{% endblock %}

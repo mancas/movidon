@@ -1,0 +1,76 @@
+<html>
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <title>{{ 'El Cartujano' | trans }}</title>
+    <style type="text/css">
+        a:hover { text-decoration: none !important; }
+        .header h1 {color: #FFF; font: bold 20px Helvetica, Arial, sans-serif; margin: 0; padding: 0; line-height: 40px;}
+        .header p {color: #999; font: normal 12px Helvetica, Arial, sans-serif; margin: 0; padding: 0; line-height: 18px;}
+        .content h2 {color:#555; font-weight: bold; margin: 0; padding: 0; line-height: 26px; font-size: 18px; font-family: Helvetica, Arial, sans-serif;  }
+        .content p {color:#767676; font-weight: normal; margin: 0; padding: 0; line-height: 20px; font-size: 14px;font-family: Helvetica, Arial, sans-serif;}
+        .content a {color: #6832a2; text-decoration: none;}
+        .footer p {font-size: 11px; color:#FFF; margin: 0; padding: 0; font-family: Helvetica, Arial, sans-serif;}
+        .footer a {color: #6832a2; text-decoration: none;}
+    </style>
+</head>
+
+<body style="margin: 0; padding: 0; background: #ebebeb;" bgcolor="#ebebeb">
+<table cellpadding="0" cellspacing="0" border="0" align="center" width="100%" style="padding: 35px 0;">
+    <tr>
+        <td align="center" style="margin: 0; padding: 0;" >
+            <table cellpadding="0" cellspacing="0" border="0" align="center" width="700" style="font-family: Helvetica, Arial, sans-serif; background:#3E3D42;" class="header">
+                <tr>
+                    <td width="700" height="132" align="left" style="padding: 10px 0 10px; background: url('{{ url_for_image}}/bundles/frontend/img/el-cartujano-header.png')">
+                        <img src="{{ url_for_image }}/bundles/frontend/img/el-cartujano-logo.png" style="border-style: none; width: 160px; margin: 0px; padding: 0px 30px; max-width: 150px; line-height: 100%; outline: medium none; text-decoration: none;" border="0" width="150">
+                    </td>
+                </tr>
+                <tr>
+                    <td width="690" align="left" style="padding:0 20px;background-color: #DE0000;" height="20">
+                    </td>
+                </tr>
+            </table>
+
+            <table cellpadding="0" cellspacing="0" border="0" align="center" width="700" style="font-family: Helvetica, Arial, sans-serif; background: #fff;" bgcolor="#fff">
+                <tr>
+                    <td width="700" valign="top" align="left" style="font-family: Helvetica, Arial, sans-serif; padding: 10px 0 0;" class="content">
+                        {% block content_mail %}{% endblock %}
+                    </td>
+                </tr>
+            </table>
+
+            <table cellpadding="0" cellspacing="0" border="0" align="center" width="700" style="background-color: #00409c;font-family: Helvetica, Arial, sans-serif; line-height: 10px;" class="footer">
+                <tr>
+                    <td width="700" align="left" style="padding: 5px 5px 10px; font-size: 11px; color:#7d7a7a; margin: 0; line-height: 1.2;font-weight: bold;font-family: Helvetica, Arial, sans-serif;" valign="top">
+                        <br>
+                        <p style="font-size: 11px; color:#FFF; margin: 0; padding: 0; font-family: Helvetica, Arial, sans-serif;">
+                            {{ 'Distribuciones Antonio Jiménez Pineda S.C.' | trans }}
+                        </p>
+                        <p style="font-size: 11px; color:#FFF; margin: 0; padding: 0; font-family: Helvetica, Arial, sans-serif;">
+                            {{ 'P.I. La Red, Conjunto Puerta Red, calle 6, 24 4150 0 Alcalá de Guadaira - Sevilla' | trans }}
+                        </p>
+                        <br>
+                        <p style="font-size: 11px; color:#FFF; margin: 0; padding: 0; font-family: Helvetica, Arial, sans-serif;">
+                            {{ 'Telefono: (+34) 955631921 - Fax: (+34) 955631921' | trans }}
+                        </p>
+                        <p style="font-size: 11px; color:#FFF; margin: 0; padding: 0; font-family: Helvetica, Arial, sans-serif;">
+                            {{ 'Email:' | trans }}
+                            <a href="mailto:el_cartujano@yahoo.es" title="Escribenos" style="font-size: 11px; color:#FFF; margin: 0; padding: 0; font-family: Helvetica, Arial, sans-serif;">
+                                el_cartujano@yahoo.es
+                            </a>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+            <table cellpadding="0" cellspacing="0" border="0" align="center" width="700" style="font-family: Helvetica, Arial, sans-serif; line-height: 10px;" class="footer">
+                <tr>
+                    <td align="center" style="padding: 5px 0 10px; font-size: 11px; color:#7d7a7a; margin: 0; line-height: 1.2;font-family: Helvetica, Arial, sans-serif;" valign="top">
+                        <br><p style="font-size: 11px; color:#7d7a7a; margin: 0; padding: 0; font-family: Helvetica, Arial, sans-serif;">{{ 'Este email ha sido generado por un sistema automatizado. No conteste directamente a este correo.' | trans }}</p>
+                        <br><p style="font-size: 11px; color:#7d7a7a; margin: 0; padding: 0; font-family: Helvetica, Arial, sans-serif;">{{ '© Copyright 2013 - ElCartujano.com  AVISO DE CONFIDENCIALIDAD - Tanto este mensaje como todos los posibles documentos adjuntos al mismo son confidenciales y están dirigidos exclusivamente a los destinatarios de los mismos. Por favor, si no eres uno de dichos destinatarios, notifícanos este hecho a contacto@cartujano.com y elimina el mensaje de tu sistema. Queda prohibida la copia, difusión o revelación de su contenido a terceros sin el previo consentimiento por escrito de elcartujano.com. En caso contrario, vulnerará la legislación vigente.' | trans }}</p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

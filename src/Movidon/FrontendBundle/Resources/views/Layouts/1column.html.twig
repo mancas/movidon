@@ -1,0 +1,31 @@
+{% extends 'FrontendBundle::base.html.twig' %}
+
+{% block header %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="container container-main">
+        {% block error %}
+            <div class="row">
+                <div class="col-md-12">
+                    {% include 'FrontendBundle:Commons:flashes.html.twig' %}
+                </div>
+            </div>
+        {% endblock %}
+
+        <div class="row">
+            <div class="col-md-12">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+{% endblock %}

@@ -1,0 +1,91 @@
+{% set link = path('event', {'slug':event.slug}) %}
+{% set image = asset(event.getImageCopy("ImageEventBox")) %}
+<div class="list-media-top-event">
+
+    <div class="top">
+        <a href="{{ link }}" title="Fotografía de {{ event.title }}">
+            <img src="{{ image }}" class="image-item">
+        </a>
+    </div>
+    <div class="middle">
+        <a href="{{ path('events',{'searchSpec':'c/'~event.category.slug, 'year': dateEvent | date('Y')}) }}" class="ribbon ribbon-blue">
+            <i class="fa fa-folder-open"></i>
+            {{ event.category }}
+        </a>
+        <div id="event-date" data-date="{{ dateEvent | date('d-m-Y') }}" class="date pull-right">
+            {{ dateEvent | date('d') }}
+            {{ dateEvent | date('F') | trans }}
+            {{ dateEvent | date('Y') }}
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="title">
+            <a href="{{ link }}" title="{{ event.title }}">
+                {{ event.title | length > 60 ? event.title | slice(0, 60) ~ '...' : event.title  }}
+            </a>
+        </div>
+        <div class="text">
+            {{ event.content | striptags | slice(0, 120) | raw }}...
+        </div>
+    </div>
+
+</div>
+{#<div id="event-alert" class="{% if firstEvent is defined and firstEvent is null %}alert alert-info{% endif %}">
+              {% if firstEvent is defined and firstEvent == null %}{{ 'No hay eventos' | trans }}{% endif %}
+            </div>
+            <div id="event-info" class="{% if firstEvent is defined and firstEvent is null %}hide{% endif %}">
+
+              {% if firstEvent is defined and firstEvent != null %}
+                  {% set image = firstEvent.image.imageEventCalendar %}
+                  {% set imagePath = image.getWebFilePath ~ '?' ~ random() %}
+              {% endif %}
+
+              <div class="list-media-top list-media-top-big">
+                <div class="top">
+                  <span class="date">
+                      {% if firstEvent is defined and firstEvent is not null %}
+                          {{ firstEvent.when | date('d') }}
+                          {{ firstEvent.when | date('F') | trans}}
+                          {{ firstEvent.when | date('Y') }}
+                      {% endif %}
+                  </span>
+                  <img id="event-img" src="{% if firstEvent is defined and firstEvent is not null %}{{ asset(imagePath) }}{% endif %}" class="image-post">
+                </div>
+
+                <div class="bottom">
+                  <div class="info-top">
+                      <h4 class="name" id="event-title">
+                          {% if firstEvent is defined and firstEvent != null %}
+                              {{ firstEvent.title|length > 45 ? firstEvent.title|slice(0, 45) ~ '...' : firstEvent.title  }}
+                          {% endif %}
+                      </h4>
+                      <div class="text" id="event-description">
+                          {% if firstEvent is defined and firstEvent != null %}
+                              {{ firstEvent.content|length > 150 ? firstEvent.content | striptags | slice(0, 150) ~ '...' : firstEvent.content | striptags  }}
+                          {% endif %}
+                      </div>
+                      <span id="event-date" class="hide">
+                          {% if firstEvent is defined and firstEvent is not null %}
+                              {{ firstEvent.when| date() }}
+                          {% endif %}
+                      </span>
+                      {% if firstEvent is defined and firstEvent != null %}
+                          <a id="event-link" class="link" href="{{ path('event', {slug: firstEvent.slug}) }}" title="{{ firstEvent.title }}">{{ "Leer más" | trans}} [+]</a>
+                      {% endif %}
+                  </div>
+                  <div class="info-bottom">
+                    <div id="tags" class="text">
+                      {% if firstEvent is not null and firstEvent.tags is not empty %}
+                        {% for tag in firstEvent.tags %}
+                          {% if (tag.className == 'Cornerfy\\EventBundle\\Entity\\Tag') %}
+                            <a href="{{ path('events',{'year': firstEvent.when | date('Y'),'searchSpec':'c/'~tag.slug}) }}">
+                              <span class="label label-default">{{ tag.name }}</span>
+                            </a>
+                          {% endif %}
+                        {% endfor %}
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>#}

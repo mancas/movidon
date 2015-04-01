@@ -1,0 +1,58 @@
+{% extends "BackendBundle:Layouts:2column.html.twig" %}
+
+{% block title_section %}
+    {{ "Listado de tags" | trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set crumbs = {'Listado de tags':'#'} %}
+    {{ setCrumbs(crumbs) }}
+    {{ parent() }}
+{% endblock %}
+
+{% block buttons_section %}
+<div class="btn-group">
+    <a href="{{ path('admin_event_tag_index') }}" title="{{"Listar registros" | trans}}" class="btn"><i class="fa fa-align-justify"></i></a>
+    <a href="{{ path('admin_event_tag_create') }}" title="{{"Añadir registro registro" | trans}}" class="btn"><i class="fa fa-plus"></i></a>
+</div>
+{% endblock %}
+
+{% block content %}
+
+    {% if tags | length > 0 %}
+    <div class="widget-box">
+        <div class="widget-title">
+            <span class="icon">
+                <i class="fa fa-align-justify"></i>
+            </span>
+            <h5>{{ "Listado de tags"|trans }}</h5>
+        </div>
+        <div class="widget-content nopadding">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th style="text-align:left;width:80%;">{{ "Nombre"|trans }}</th>
+                    <th style="text-align:left;width:20%;">{{ "Acciones"|trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for tag in tags %}
+                    <tr>
+                        <td>{{ tag.name }}</td>
+                        <td style="text-align:center;">
+                            <a class="btn btn-primary btn-xs" href="{{ path('admin_event_tag_edit', { 'id': tag.id }) }}">{{"Editar" | trans}}</a>
+                            <a class="btn btn-danger btn-xs delete" href="{{ path('admin_event_tag_delete', { 'id': tag.id }) }}">{{"Eliminar" | trans}}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% else %}
+        <div class="alert alert-info mt">
+            <strong>{{"Información!" | trans }}</strong>
+            {{"No hay tags" | trans }}
+        </div>
+    {% endif %}
+{% endblock %}

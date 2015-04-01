@@ -1,0 +1,30 @@
+events:
+    pattern: /{year}/{searchSpec}
+    requirements:
+        searchSpec: "[ctpldg]/.*"
+        year: \d+
+    defaults: { _controller: EventBundle:EventFront:index, searchSpec: null, year: null }
+
+event:
+    pattern: /e/{slug}
+    defaults: { _controller: EventBundle:EventFront:event }
+
+get_events:
+    pattern: /get-events-calendar
+    defaults: { _controller: EventBundle:EventFront:getEvents }
+
+get_event_detail:
+    pattern: /get-event-detail
+    defaults: { _controller: EventBundle:EventFront:getEventDetail }
+
+get_next_event:
+    pattern: /get-next-event-detail
+    defaults: { _controller: EventBundle:EventFront:getNextEventDetail }
+
+get_prev_event:
+    pattern: /get-prev-event-detail
+    defaults: { _controller: EventBundle:EventFront:getPrevEventDetail }
+
+get_events_template:
+    pattern: /get-events-from-calendar
+    defaults: { _controller: EventBundle:EventFront:getEventsTemplate }

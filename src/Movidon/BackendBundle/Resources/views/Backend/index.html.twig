@@ -1,0 +1,38 @@
+{% extends "BackendBundle:Layouts:2columns.html.twig" %}
+
+{% block title_section %}
+    {{ "Resumen" | trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="widget-box">
+        <div class="widget-title">
+            <span class="icon">
+                <i class="fa fa-bar-chart-o"></i>
+            </span>
+            <h5>{{ 'Resumen del sitio' }}</h5>
+        </div>
+        <div class="widget-content">
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-8">
+                    <div class="orders-resume chart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/backend/js/excanvas.min.js') }}"></script>
+    <script src="{{ asset('bundles/backend/js/jquery.flot.min.js') }}"></script>
+    <script src="{{ asset('bundles/backend/js/jquery.flot.resize.min.js') }}"></script>
+    <script src="{{ asset('bundles/backend/js/jquery.flot.canvas.js') }}"></script>
+    <script src="{{ asset('bundles/backend/js/jquery.flot.time.min.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends "FrontendBundle:Layouts:2column_mcl.html.twig" %}
+
+{% block mainstylesheets %}
+    {{ parent() }}
+
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Cornerfy.com" />
+    <meta property="og:description" content="{{ event.title }}" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    
+{% endblock %}
+
+{% block title %}{{ event.title }}{% endblock %}
+{% block description %}{% endblock %}
+{% block sectionclass %}page blog list{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+    {# include 'FrontendBundle:Commons:search-pop.html.twig' #}
+    {% set title_page = event.title %}
+    {% set crumbs = {'Inicio':path('frontend_homepage'),
+                     'Eventos':path('events'),
+                     (title_page): null } %}
+    {{ setCrumbs(crumbs) }}
+    {% include 'FrontendBundle:Commons:breadcrumb.html.twig' %}
+{% endblock %}
+
+{% block section_title %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="section-title">{{ event.title }}</h1>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}      
+    <div class="column-main box-detail">
+        <div>
+            {% if event.image is not empty %}
+                <img src="{{asset(event.image.webFilePath)}}" class="image-post" alt="{{ "Fotografía de %eventName%"|trans({'%eventName%' : event.title}) }}">
+            {% else %}
+                <img src="{{asset("bundles/frontend/img/no-photo-space.png")}}" class="image-post">
+            {% endif %}
+        </div>
+        <div class="content clearfix">
+            <div class="col-md-9">
+                <div class="text">
+                    <div class="info">
+                        <span class="date">
+                            <i class="fa fa-calendar"></i>
+                            {% set nextEventDate = event.NextEventDateFromToday %}
+                            {{ nextEventDate | date('d') }} {{"de"| trans}}
+                            {{ nextEventDate | date('F') | trans }} {{"de"| trans}}
+                            {{ nextEventDate | date('Y') }}
+                        </span>
+                        <span class="category">
+                            <i class="fa fa-folder-open"></i>
+                            <a href="{{ path('events',{'searchSpec':'c/'~event.category.slug, 'year':nextEventDate | date('Y')}) }}"title="{{ "Eventos de %category% en %year%"|trans({'%category%': event.category, '%year%': nextEventDate|date('Y')}) }}">{{ event.category }}</a>
+                        </span>
+                    </div>
+                    <div class="info">
+                        <span class="address">
+                            <i class="fa fa-globe"></i>
+                            <a href="{{ path('events',{'searchSpec':'l/'~event.city.slug, 'year':nextEventDate | date('Y')}) }}" class="link-default-color" title="{{ "Eventos de %city% en %year%" | trans({'%city%': event.city, '%year%': nextEventDate|date('Y')}) }}">{{ event.city }}</a> (<a href="{{ path('events',{'searchSpec':'p/'~event.city.province.slug, 'year':nextEventDate | date('Y')}) }}" class="link-default-color" title="{{ "Eventos en provincia de %province% en %year%"|trans({'%province%':event.city.province, '%year%': nextEventDate|date('Y')}) }}" >{{ event.city.province }}</a>)
+                        </span>
+                    </div>
+                    {{ event.content|raw }}
+                    {# if event.tags is defined and event.tags | length > 0 %}
+                        <p>&nbsp;</p>
+                        <h4 class="subtitle">{{ "Tags" | trans}}</h4>
+                        <div class="tags">
+                            {% for tag in event.tags  %}
+                                <a href="{{ path('events',{'searchSpec':'t/'~tag.slug, 'year':event.when | date('Y')}) }}" class="label">{{ tag.name }}</a>
+                            {% endfor %}
+                        </div>
+                    {% endif #}
+                        {#<p>&nbsp;</p>
+                        <h4 class="subtitle">{{ "Categoría" | trans}}</h4>
+                        <div class="tags">
+                            <a href="{{ path('events',{'searchSpec':'c/'~event.category.slug, 'year':event.when | date('Y')}) }}" class="label">{{ event.category }}</a>
+                        </div>#}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="social-icons-block">
+                    <a class="btn btn-facebook" title="{{'Compartir en Facebook'|trans}}" href="{{ getShareUrl(url('event', {'slug':event.slug}), 'facebook') }}" target="_blank">
+                        <i class="fa fa-facebook"></i>{{'Facebook'|trans}}
+                    </a>
+                    <a class="btn btn-twitter" title="{{'Compartir en Twitter'|trans}}" href="{{ getShareUrl(url('event', {'slug':event.slug}), 'twitter') }}" target="_blank">
+                        <i class="fa fa-twitter"></i>{{'Twitter'|trans}}
+                    </a>
+                    <a class="btn btn-google" title="{{'Compartir en Google+'|trans}}" href="{{ getShareUrl(url('event', {'slug':event.slug}), 'gplus') }}" target="_blank">
+                        <i class="fa fa-google-plus"></i>{{'Google+'|trans}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content_column_right %}
+    <div class="column-side">
+        {% include 'EventBundle:Event:commons/sidebar.html.twig' %}
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {%  include 'EventBundle:Event:commons/footer-links.html.twig' %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+{% endblock %}

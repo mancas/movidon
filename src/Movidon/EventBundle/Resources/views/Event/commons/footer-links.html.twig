@@ -1,0 +1,68 @@
+<div id="footer-links">
+	<div class="container">
+		<div class="row">
+            {% if fromSingleEvent is defined and fromSingleEvent %}
+                {% if eventsByCategory is not null %}
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <ul class="list-unstyled">
+                            <li class="title"><i class="fa fa-folder-open"></i> {{"Eventos de %category%" | trans({'%category%': event.category }) }}</li>
+                           {% for eventSearched in eventsByCategory %}
+                               {% if eventSearched.slug != event.slug %}
+                                  <li><a href="{{ path('event', {'slug' : eventSearched.slug}) }}" title="{{ eventSearched.title }}">{{ eventSearched.title }}</a></li>
+                              {% endif %}
+                          {% endfor %}
+                       </ul>
+                   </div>
+                {% endif %}
+
+                {% if eventsByProvince is not null %}
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <ul class="list-unstyled">
+                            <li class="title"><i class="fa fa-globe"></i> {{"Eventos en provincia de %province%" | trans({'%province%': event.city.province }) }}</li>
+                            {% for eventSearched in eventsByProvince %}
+                                 {% if eventSearched.slug != event.slug %}
+                                 <li><a href="{{ path('event', {'slug' : eventSearched.slug}) }}" title="{{ eventSearched.title }}">{{ eventSearched.title }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                         </ul>
+                     </div>
+                {% endif %}
+
+            {#    {% if eventsByCity is not null %}
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <ul class="list-unstyled">
+                            <li class="title"><i class="fa fa-map-marker"></i> {{"Eventos en la localidad de %city%" | trans({'%city%': event.city }}</li>
+                            {% for eventSearched in eventsByCity %}
+                                {% if eventSearched.slug != event.slug %}
+                                    <li><a href="{{ path('event', {'slug' : eventSearched.slug}) }}" title="{{ eventSearched.title }}">{{ eventSearched.title }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                  {% endif %}
+            #}
+            {% else %}
+                {% if sel_cat is not null %}
+                    {% if sel_city is not null %}
+                        {{ render(controller('EventBundle:EventLinks:citiesWithProvinceAndCategoryEventsLinks', { provinceSlug: sel_prov, categorySlug: sel_cat, citySlug: sel_city, year: year})) }}
+                    {% elseif sel_prov is not null %}
+                        {{ render(controller('EventBundle:EventLinks:citiesWithProvinceAndCategoryEventsLinks', { provinceSlug: sel_prov, categorySlug: sel_cat, year: year })) }}
+                    {% else %}
+                        {{ render(controller('EventBundle:EventLinks:provincesWithCategoryEventsLinks', { categorySlug: sel_cat, year: year })) }}
+                        {{ render(controller('EventBundle:EventLinks:citiesWithCategoryEventsLinks', { categorySlug: sel_cat, year: year })) }}
+                    {% endif %}
+                {% elseif sel_city is not null %}
+                    {{ render(controller('EventBundle:EventLinks:categoriesWithProvinceEventsLinks', { provinceSlug: sel_prov, citySlug: sel_city, year: year })) }}
+                    {{ render(controller('EventBundle:EventLinks:citiesWithProvinceEventsLinks', { provinceSlug: sel_prov, citySlug: sel_city, year: year })) }}
+                {% elseif sel_prov is not null %}
+                    {{ render(controller('EventBundle:EventLinks:categoriesWithProvinceEventsLinks', { provinceSlug: sel_prov, citySlug: null, year: year })) }}
+                    {{ render(controller('EventBundle:EventLinks:citiesWithProvinceEventsLinks', { provinceSlug: sel_prov, citySlug: null, year: year })) }}
+                {% else %}
+                    {{ render(controller('EventBundle:EventLinks:bestCategoriesEventsLinks', { year: year })) }}
+                    {{ render(controller('EventBundle:EventLinks:bestProvincesEventsLinks', { year: year })) }}
+                    {{ render(controller('EventBundle:EventLinks:bestCitiesEventsLinks', { year: year })) }}
+                {% endif %}
+            {% endif %}
+		</div>
+	</div>
+</div>

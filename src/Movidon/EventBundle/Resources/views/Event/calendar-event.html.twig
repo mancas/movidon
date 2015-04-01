@@ -1,0 +1,138 @@
+{% extends "FrontendBundle:Layouts:1column.html.twig" %}
+
+{% block title %}{{ title }} {% if day is defined and day %} {{ " el " }} {{ day | date('d') }} {{ " de " }}
+                                 {{ day | date('F') | trans}} {{ " de " }}
+                                 {{ day | date('Y') }}
+                             {% endif %}
+{% endblock %}
+{% block description %}{{ title }}{% endblock %}
+{% block sectionclass %}page event list{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+    {% include 'FrontendBundle:Commons:search-pop.html.twig' %}
+    {% set crumbs = {'Inicio':path('frontend_homepage'),'Eventos':path('events')} %}
+    {{ setCrumbs(crumbs) }}
+    {% include 'FrontendBundle:Commons:breadcrumb.html.twig' %}
+{% endblock %}
+{% block content %}
+    {% if day is not defined or (day is defined and not day) %}
+        {% set day =  null %}
+    {% endif %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="section-title">{{ title }} {% if day is defined and day %}
+                                                        {{ " el " }} {{ day | date('d') }} {{ " de " }}
+                                                        {{ day | date('F') | trans}} {{ " de " }}
+                                                        {{ day | date('Y') }}
+                                                  {% endif %}
+            </h1>
+        </div>
+    </div>
+    <div>
+        <h3 class="section-description">{{ description }}</h3>
+    </div>
+
+    <ul class="nav nav-tabs" id="calendar-tabs">
+        <li{% if calendarAction %} class="active"{% endif %}><a id="use-calendar" href="#calendar" data-toggle="tab"><i class="fa fa-calendar"></i> {{ 'Calendario' | trans }}</a></li>
+        <li{% if not calendarAction %} class="active"{% endif %}><a href="#events" data-toggle="tab"><i class="fa fa-globe"></i> {{ 'Eventos' | trans }}</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane fade {% if calendarAction %}in active{% endif %}" id="calendar">
+            {% include 'EventBundle:Event:calendar-year.html.twig' %}
+        </div>
+        <div class="tab-pane fade {% if not calendarAction %}in active{% endif %}" id="events">
+            {% if allEvents | length > 0 %}
+            <div class="row">
+                {% for event in allEvents | slice(paginator.offset, paginator.limit) %}
+                    {{ render(controller("EventBundle:EventFront:eventBox", {'event': event, 'year' : year, 'day' : day})) }}
+                {% endfor %}
+            </div>
+            {% include 'EventBundle:Event/commons:paginator.html.twig' %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}
+    {%  include 'EventBundle:Event:commons/footer-links.html.twig' %}
+    {{ parent() }}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/frontend/css/datepicker/datepicker.css') }}">
+    <script src="{{ asset('bundles/frontend/js/datepicker/bootstrap-datepicker.js') }}"></script>
+    <script>
+        datePickerNoBounds('.datepicker-from','.datepicker-to');
+        {{ updateSelectContentDynamically('#p', path('get_cities_slug'), '#l') }}
+        function queryUrlFormed(path)
+        {
+            var url = "";
+            if ($('#t').val()){
+                url += '/t/'+$('#t').val();
+            }
+
+            if ($('#c').val()){
+                url += '/c/'+$('#c').val();
+            }
+
+            if ($('#l').val()){
+                url += '/l/'+$('#l').val();
+            } else if ($('#p').val()){
+                url += '/p/'+$('#p').val();
+            }
+
+            window.location = path+url;
+
+            return false;
+        }
+    </script>
+    <script src="{{ asset('bundles/frontend/js/scrollTo.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('table').delegate('td', 'click', function (event) {
+                var date = $(this).attr('data-date');
+                if (date) {
+                    var searchTag = $('#t').val(),
+                        searchProvince = $('#p').val(),
+                        searchCity = $('#l').val(),
+                        path = '{{ path('events', {'searchSpec': searchSpec, 'year' : year}) }}';
+
+                    path = sanitizeUrl(path);
+
+                    if (path.substring(path.length-1) == "/") {
+                        path += 'd/' + date;
+                    } else {
+                        path += '/d/' + date;
+                    }
+                    window.location = path;
+                }
+            });
+
+            $('#use-calendar').popover({'placement' : 'bottom', 'html' : true, 'content' : '{{ 'Podrás echar un vistazo a todo el contenido de una forma más práctica' | trans}}',
+                'title' : '{{ 'Utiliza el calendario' | trans }}<a href="#" title="{{ 'Cerrar' | trans }}" class="close-popover pull-right"><i class="fa fa-times"></i></a>', 'container' :'body' });
+            {% if showPopover == true %}
+            $('#use-calendar').popover('show');
+            {% endif %}
+
+            $('#use-calendar').click(function() {
+                $(this).popover('destroy');
+            });
+
+            $('.close-popover').click(function(event) {
+                event.preventDefault();
+                $('#use-calendar').popover('destroy');
+            });
+        });
+
+        function sanitizeUrl(url)
+        {
+            var index = url.indexOf('/d/');
+            if (index != -1) {
+                url = url.substr(0, index);
+            }
+
+            return url;
+        }
+    </script>
+{% endblock %}

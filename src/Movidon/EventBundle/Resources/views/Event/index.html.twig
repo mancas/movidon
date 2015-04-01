@@ -1,0 +1,43 @@
+{% extends "FrontendBundle:Layouts:1column.html.twig" %}
+{% block title %}{{ title }}{% endblock %}
+{% block description %}{{ title }}{% endblock %}
+{% block sectionclass %}page event{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% if index %}
+        <meta name="robots" content="index, follow">
+    {% else %}
+        <meta name="robots" content="noindex, follow">
+    {% endif %}
+{% endblock %}
+
+{% block header %}
+    {{ parent() }}
+    {% include 'FrontendBundle:Commons:search-pop.html.twig' %}
+    {% set crumbs = {'Inicio':path('frontend_homepage'),'Event':path('events')} %}
+    {{ setCrumbs(crumbs) }}
+    {% include 'FrontendBundle:Commons:breadcrumb.html.twig' %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="section-title">{{ title }}</h1>
+        </div>
+    </div>
+    <div class="row events">
+        {% if events | length > 0 %}
+            {% for event in events %}
+                {{ render(controller("EventBundle:EventFront:eventBox", {'event': event})) }}
+            {% endfor %}
+            </div>
+            {% include 'EventBundle:Event:commons/paginator.html.twig' %}
+        {% else %}
+            <div class="alert alert-info">
+                <strong>{{ "Información"|trans }}!</strong>
+                {{ "No hay events"|trans }}.
+            </div>
+            </div>
+        {% endif %}
+{% endblock %}

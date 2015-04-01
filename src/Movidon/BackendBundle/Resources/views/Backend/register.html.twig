@@ -1,0 +1,27 @@
+{% extends "BackendBundle:Layouts:login.html.twig" %}
+
+{% block content %}
+    <div id="logo">
+        <img src="{{ asset('bundles/frontend/img/logo.png') }}" alt="" />
+    </div>
+    <div id="loginbox">
+        <form action="{{ path('admin_register') }}" method="post" name="acceso" {{ form_enctype(form) }}>
+            <p>{{"Registra a un usuario para administración" | trans}}.</p>
+            <div class="input-group input-sm">
+                {{ form_widget(form.username, {'attr': {'class': 'form-control', 'placeholder': 'Nombre usuario'}}) }}
+            </div>
+            <div class="input-group input-sm">
+                {{ form_widget(form.password.first, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="input-group input-sm">
+                {{ form_widget(form.password.second, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            {{ form_rest(form) }}
+            <div class="form-actions clearfix">
+                <div class="pull-right">
+                </div>
+                <input type="submit" class="btn btn-block btn-primary btn-default" value="{{"Registrar" | trans}}" />
+            </div>
+        </form>
+    </div>
+{% endblock %}

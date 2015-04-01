@@ -1,0 +1,7 @@
+delete_image:
+    pattern:  /delete-image/{id}
+    defaults: { _controller: ImageBundle:Image:deleteImage }
+
+change_image_main:
+    pattern:  /change-image-main/{id}
+    defaults: { _controller: ImageBundle:Image:changeImageMain }

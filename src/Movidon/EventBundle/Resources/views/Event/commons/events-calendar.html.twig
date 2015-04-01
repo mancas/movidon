@@ -1,0 +1,59 @@
+<div id="events-calendar">
+</div><!-- #events-calendar -->
+
+<script src="{{ asset('bundles/frontend/js/fullcalendar.min.js') }}"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#events-calendar').fullCalendar({
+            header:
+            {
+                left:  'prev',
+                center: 'title',
+                right:  'next'
+            },
+            monthNames :
+                    ['{{ "Enero"|trans }}',
+                        '{{ "Febrero"|trans }}',
+                        '{{ "Marzo"|trans }}',
+                        '{{ "Abril"|trans }}',
+                        '{{ "Mayo"|trans }}',
+                        '{{ "Junio"|trans }}',
+                        '{{ "Julio"|trans }}',
+                        '{{ "Agosto"|trans }}',
+                        '{{ "Septiembre"|trans }}',
+                        '{{ "Octubre"|trans }}',
+                        '{{ "Noviembre"|trans }}',
+                        '{{ "Diciembre"|trans }}'],
+            dayNames :
+                    ['{{"Domingo"|trans}}',
+                        '{{"Lunes"|trans}}',
+                        '{{"Martes"|trans}}',
+                        '{{"Miércoles"|trans}}',
+                        '{{"Jueves"|trans}}',
+                        '{{"Viernes"|trans}}',
+                        '{{"Sábado"|trans}}'],
+            dayNamesShort:
+                    ['{{"Dom"|trans}}',
+                        '{{"Lun"|trans}}',
+                        '{{"Mar"|trans}}',
+                        '{{"Mie"|trans}}',
+                        '{{"Jue"|trans}}',
+                        '{{"Vie"|trans}}',
+                        '{{"Sab"|trans}}'],
+            firstDay : 1
+        });
+
+        /** Wrap event text **/
+        function wrapText(str, maxCharacters) {
+            var result, slice_index;
+
+            result = str.slice(maxCharacters - 1);
+
+            slice_index = result.indexOf(' ');
+
+            result = str.slice(0, (maxCharacters - 1) + slice_index) + '...';
+
+            return result;
+        }
+    });
+</script>

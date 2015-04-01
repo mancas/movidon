@@ -1,0 +1,68 @@
+@import url(http://fonts.googleapis.com/css?family=Gafata:400,300,700);
+* {
+  margin: 0; }
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: Gafata;
+  background-color: #D42F43; }
+
+.red {
+  color: #D42F43; }
+
+/** NAVBAR **/
+.mover-navbar {
+  background-color: transparent; }
+  .mover-navbar .nav > li > a {
+    color: #FFFFFF;
+    text-shadow: 0.1rem 0.1rem #333333;
+    text-decoration: none;
+    line-height: 1rem;
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 1rem 0;
+    margin: 1rem 1.5rem; }
+    .mover-navbar .nav > li > a:hover {
+      background-color: transparent;
+      border-bottom: solid 0.2rem #FFFFFF; }
+  .mover-navbar li.active a {
+    color: #D42F43; }
+
+#banner-top {
+  width: 100%;
+  height: 100vh;
+  background-color: #f6f6f6;
+  color: #FFFFFF;
+  text-shadow: 0.1rem 0.1rem #333333;
+  text-transform: uppercase; }
+  #banner-top .container {
+    height: 100%; }
+  #banner-top .row {
+    width: 100%;
+    height: 100%; }
+  #banner-top .wrapper {
+    height: 100%;
+    /* Make it a flex container */
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    /* Align the bootstrap's container vertically */
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    flex-direction: column; }
+    #banner-top .wrapper h3 {
+      font-size: 4rem;
+      font-weight: bold; }
+
+/*# sourceMappingURL=custom.css.map */

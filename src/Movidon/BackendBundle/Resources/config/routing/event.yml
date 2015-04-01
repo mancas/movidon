@@ -1,0 +1,35 @@
+admin_event_tag_index:
+    pattern: /tags
+    defaults: { _controller: BackendBundle:Tag:index }
+
+admin_event_tag_create:
+    pattern: /tags/create
+    defaults: { _controller: BackendBundle:Tag:create }
+
+admin_event_tag_edit:
+    pattern: /tags/edit/{id}
+    defaults: { _controller: BackendBundle:Tag:edit }
+
+admin_event_tag_delete:
+    pattern: /tags/delete/{id}
+    defaults: { _controller: BackendBundle:Tag:delete }
+
+admin_event_index:
+    pattern: /events
+    defaults: { _controller: BackendBundle:Event:index }
+
+admin_event_create:
+    pattern: /events/create
+    defaults: { _controller: BackendBundle:Event:create }
+
+admin_event_edit:
+    pattern: /events/edit/{id}
+    defaults: { _controller: BackendBundle:Event:edit }
+
+admin_event_delete:
+    pattern: /events/delete/{id}
+    defaults: { _controller: BackendBundle:Event:delete }
+
+admin_event_publish:
+    pattern: /events/publish/{id}
+    defaults: { _controller: BackendBundle:Event:publish }

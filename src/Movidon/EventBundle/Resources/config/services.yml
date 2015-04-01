@@ -1,0 +1,19 @@
+parameters:
+    event.createformhandler.class: Movidon\EventBundle\Form\Handler\CreateEventFormHandler
+    event.manager.class: Movidon\EventBundle\Form\Handler\EventManager
+    event.searcheventhandler.class: Movidon\EventBundle\Form\Handler\SearchEventHandler
+    event.searcher.class: Movidon\EventBundle\Searcher\EventSearcher
+
+services:
+    event.manager:
+        class: %event.manager.class%
+        arguments: [@doctrine.orm.entity_manager]
+    event.create_event_form_handler:
+        class: %event.createformhandler.class%
+        arguments: [@event.manager]
+    event.search_event_form_handler:
+        class: %event.searcheventhandler.class%
+        arguments: [@doctrine.orm.entity_manager]
+    event.searcher:
+        class: %event.searcher.class%
+        arguments: [@doctrine.orm.entity_manager]       

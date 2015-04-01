@@ -1,0 +1,28 @@
+{% if paginator.pagesIdxToDisplay > 1 %}
+    <ul class="pagination pagination-sm">
+
+    {% if paginator.prev %}
+
+        {% if paginator.prev > 1 %}
+            {% set link = eventUrl(sel_cat, sel_tag, sel_prov, sel_city, year, paginator.prev) %}
+        {% else %}
+            {% set link = path('events') %}
+        {% endif %}
+    
+        <li><a title="{{ 'Página anterior'|trans }}" href="{{ link }}">&laquo;</a></li>
+    {% endif %}
+    {% for pageIdx in paginator.pagesIdxToDisplay %}
+
+        {% if pageIdx > 1 %}
+            {% set link = eventUrl(sel_cat, sel_tag, sel_prov, sel_city, year, pageIdx) %}
+        {% else %}
+            {% set link = path('events') %}
+        {% endif %}
+
+        <li{% if pageIdx == page %} class="active"{% endif %}><a title="{{ 'Página %PAGE%'|trans({'%PAGE%':pageIdx}) }}" href="{{ link }}">{{ pageIdx }}</a></li>
+    {% endfor %}
+    {% if paginator.next %}
+        <li><a title="{{ 'Página siguiente'|trans }}" href="{{ eventUrl(sel_cat, sel_tag, sel_prov, sel_city, year, paginator.next) }}">&raquo;</a></li>
+    {% endif %}
+    </ul>
+{% endif %}

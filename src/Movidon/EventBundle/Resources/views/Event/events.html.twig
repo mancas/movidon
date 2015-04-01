@@ -1,0 +1,5 @@
+<div class="row events">
+    {% for event in events %}
+        {{ render(controller("EventBundle:EventFront:eventBox", {'event': event, 'year' : year})) }}
+    {% endfor %}
+</div>

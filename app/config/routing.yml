@@ -1,15 +1,23 @@
+event:
+    resource: "@EventBundle/Resources/config/routing.yml"
+    prefix:   /
+
 blog:
     resource: "@BlogBundle/Resources/config/routing.yml"
     prefix:   /
 
-events:
-    resource: "@EventsBundle/Resources/config/routing.yml"
-    prefix:   /
-
 backend:
     resource: "@BackendBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /bo
 
 frontend:
     resource: "@FrontendBundle/Resources/config/routing.yml"
+    prefix:   /
+
+location:
+    resource: "@LocationBundle/Resources/config/routing.yml"
+    prefix:   /
+
+image:
+    resource: "@ImageBundle/Resources/config/routing.yml"
     prefix:   /

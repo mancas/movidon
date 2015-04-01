@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{"Panel de administración de MOVERS by FUE" | trans }}</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('bundles/frontend/img/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/frontend/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/frontend/css/font-awesome.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/backend/css/unicorn.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/backend/css/custom.unicorn.css') }}" />
+    <script src="{{ asset('bundles/frontend/js/jQuery.min.js') }}"></script>
+    {% block stylesheets %}{% endblock %}
+</head>
+<body data-color="blue" class="flat">
+<div id="wrapper">
+    {% block header %}{% endblock %}
+    {% block sidenav %}{% endblock %}
+    {% block body %}{% endblock %}
+    {% block footer %}{% endblock %}
+
+    {% block javascripts %}
+        <script>
+            $(document).ready(function(){
+                $('a.delete').click(function(event){
+                    event.preventDefault();
+                    if (confirm('{{ "¿Estas seguro que quieres borrarlo?" | trans() }}')) {
+                        window.location = $(this).attr('href');
+                    }
+                });
+
+                $('form').bind('submit', function(event) {
+                    $('.loader').show();
+                })
+            });
+        </script>
+    {% endblock %}
+</div>
+</body>
+</html>

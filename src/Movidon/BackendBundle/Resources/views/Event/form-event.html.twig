@@ -1,0 +1,106 @@
+<div class="form-group">
+    <label for="event_title" class="col-sm-2 control-label">
+        <span class="red">*</span>
+        {{ 'Título'|trans }}
+    </label>
+
+    <div class="col-sm-4">
+        {{ form_widget(form.title, { 'attr': { 'class': 'form-control required'} }) }}
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="event_content" class="col-sm-2 control-label"><span class="red">*</span>  {{ "Descripción"|trans }}
+    </label>
+
+    <div class="col-sm-10">
+        {{ form_widget(form.content, { 'attr': { 'class': 'form-control required tinymce'} }) }}
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="event_catefory" class="col-sm-2 control-label"> <span class="red">*</span> {{ 'Categoría'|trans }}
+
+    </label>
+
+    <div class="col-sm-4">
+        {{ form_widget(form.category, { 'attr': { 'class': 'form-control required'} }) }}
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="event_tags" class="col-sm-2 control-label">{{ 'Tags'|trans }}</label>
+
+    <div class="col-sm-4">
+        {{ form_widget(form.tags, { 'attr': { 'class': 'form-control select2'} }) }}
+    </div>
+</div>
+
+<div class="form-group">
+    {% if edition is defined and event.eventDates|length > 0 %}
+        {% for eventDate in event.getOrderedEventDates %}
+            <div class="form-group">
+                <label for="event_dates" class="col-sm-2 control-label">{{ 'Añadir día'|trans }}</label>
+                <div class="col-sm-3">
+                    <div class="input-group">
+                        <input id="event_dates" class="form-control datepicker" type="text" autocomplete="off" required="required" name="event_dates[]" value="{{ eventDate.date | date("d-m-Y")}}"/>
+                        <span class="input-group-addon input-group-addon-click"><i class="fa fa-calendar"></i></span>
+                        <span class="input-group-addon remove_event_date"><i class="fa fa-trash-o"></i></span>
+                    </div>
+                </div>
+            </div>
+            {% if loop.last %}
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <label for="event_when" class="col-sm-2 control-label"> <span class="red">*</span> {{ 'Fecha de inicio'|trans }}</label>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input id="event_dates" class="form-control datepicker" type="text" autocomplete="off" required="required" name="event_dates[]" value=""/>
+                <span class="input-group-addon input-group-addon-click"><i class="fa fa-calendar"></i></span>
+                <span class="input-group-addon remove_event_date"><i class="fa fa-trash-o"></i></span>
+            </div>
+        </div>
+    {% endif %}
+</div>
+<div id="event_dates_container" {% if edition is not defined %}style="display:none;"{% endif %}>
+</div>
+<div class="form-group">
+    <div class="col-sm-3 col-sm-offset-2">
+        <a id="create_date" href="#">{{ "Añadir otro día"|trans }}</a>
+    </div>
+    <div class="col-sm-3">
+        <a id="create_period" href="#">{{ "Añadir otro periodo"|trans }}</a>
+    </div>
+</div>
+<div id="periods_container" {% if edition is not defined %}style="display:none;"{% endif %}>
+</div>
+<div class="form-group">
+    <label for="p" class="col-sm-2 control-label">{{ 'Provincia'|trans }}</label>
+
+    <div class="col-sm-4">
+        <select name="p" id="p" class="form-control" autocomplete="off">
+            <option value="" selected="selected">{{ 'Provincia' | trans }}</option>
+            {% for province in provinces %}
+                <option value="{{ province.getId }}" {% if provinceEvent is defined and provinceEvent is not null and province.getId == provinceEvent.id %} selected="selected" {% endif %}>{{ province.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="item_address_city" class="col-sm-2 control-label"><span class="red">*</span> {{ 'Localidad'|trans }}
+    </label>
+
+    <div class="col-sm-4">
+        <select name="l" class="form-control" id="l" autocomplete="off">
+            <option value="" selected="selected">{{ 'Localidad' | trans }}</option>
+            {% for city in cities %}
+                <option value="{{ city.slug }}"
+                        {% if city.slug == event.city.slug %}selected="selected"{% endif %}>{{ city.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
+{{ form_rest(form) }}

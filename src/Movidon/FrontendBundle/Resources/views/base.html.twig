@@ -27,8 +27,6 @@
 
 {% block header %}
     {% include 'FrontendBundle:Commons:nav-top.html.twig' %}
-    {{ render(controller("FrontendBundle:Frontend:categoryNav")) }}
-    {% include 'CartBundle:Commons:cart-alert.html.twig' %}
 {% endblock %}
 
 <div id="wrap">
@@ -39,7 +37,6 @@
     {% endblock %}
 </div>
 {% block javascripts %}
-    {% include 'FrontendBundle:Commons:category-nav-script.html.twig' %}
 {% endblock %}
 </body>
 </html>

@@ -1,0 +1,12 @@
+{% if cities is defined and cities is not empty %}
+    <option value="">{{ "Localidad"|trans }}</option>
+    {% for city in cities %}
+        <option
+                value="{{ city.id }}"
+                {% if (selectedCity is not empty) and ((city.slug == selectedCity) or (city.id == selectedCity)) %} selected="selected"{% endif %}>
+            {{ city.name }}
+        </option>
+    {% endfor %}
+{% else %}
+    <option value=''>{{ 'Localidad' | trans }}</option>
+{% endif %}

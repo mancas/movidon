@@ -1,0 +1,15 @@
+parameters:
+    image.image_manager.class: Movidon\ImageBundle\Form\Handler\ImageManager
+    image.create_image_form.class: Movidon\ImageBundle\Form\Handler\CreateImageFormHandler
+    image.createasynchronousformhandler.class: Movidon\ImageBundle\Form\Handler\CreateImageAsynchronousFormHandler
+
+services:
+    image.manager:
+        class: %image.image_manager.class%
+        arguments: [@doctrine.orm.entity_manager]
+    image.form_handler:
+        class: %image.create_image_form.class%
+        arguments: [@image.manager, @validator]
+    image.create_image_asynchronous_form_handler:
+            class: %image.createasynchronousformhandler.class%
+            arguments: [@image.manager, @validator, @service_container]

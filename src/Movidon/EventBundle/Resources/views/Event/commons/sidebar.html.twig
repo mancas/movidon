@@ -1,0 +1,93 @@
+<div class="box box-transparent">
+    {#<div class="line-block">
+        <h4 class="title-block">Etiquetas</h4>
+    </div>
+    <div class="tags block">
+        {% for tag in tags %}
+            <a href="{{ path('events',{'searchSpec':'t/'~tag.slug, 'year':event.when|date('Y') }) }}" class="label">{{ tag.name }}</a>
+        {% endfor %}
+    </div>#}
+    <h4 class="subtitle-grey">
+        <i class="fa fa-folder-open"></i>
+        {{"Categorías" | trans}}
+    </h4>
+    <div class="tags block">
+        {% for category in categories %}
+            <a href="{{ path('events',{'searchSpec':'c/'~category.slug, 'year':event.when|date('Y') }) }}" class="label">{{ category.name }}</a>
+        {% endfor %}
+    </div>
+    {#
+    <h4 class="subtitle-grey">
+        <i class="fa fa-bars"></i>
+        {{"Últimas entradas" | trans}}
+    </h4>
+    <ul class="list block">
+        {% for lastEvent in lastsEvents %}
+            <li> <a href="{{ path('event',{'slug':lastEvent.slug})}}">{{ lastEvent.title }}</a></li>
+        {% endfor %}
+    </ul>
+    #}
+    {#
+    <div class="line-block">
+        <h4 class="title-block">Archivo</h4>
+    </div>
+    <ul class="list block">
+    {% for date in dates %}
+        <li> <a href="{{ path('events',{'searchSpec':'f/'~date.firstDate~'/t/'~date.lastDate}) }}">{{ date.dateString }}</a></li>
+    {% endfor %}
+    </ul>#}
+
+    {% if relatedEvents | length > 0 %}
+    <h4  class="subtitle-grey">
+        <i class="fa fa-sitemap"></i>
+        {{"Eventos relacionados" | trans}}
+    </h4>
+    <ul class="list-media-side-small block">
+        {% for relatedEvent in relatedEvents %}
+            <li class="clearfix">
+                <a href="{{ path('event',{'slug':relatedEvent.slug})}}">
+                    <div class="image">
+                        {% set imagePath = relatedEvent.image.ImageThumbnail.getWebFilePath ~ '?' ~ random() %}
+                        <img src="{{asset(imagePath)}}">
+                    </div>
+                    <div class="text">
+                        <span class="date">
+                            {{ relatedEvent.getFirstEventDateFromYear.date | date('d/m/Y') }}
+                        </span>
+                        <span class="title">
+                            {{ relatedEvent.title }}
+                        </span>
+                    </div>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if nextEvents | length > 0 %}
+    <h4  class="subtitle-grey">
+        <i class="fa fa-globe"></i>
+        {{"Próximos eventos" | trans}}
+    </h4>
+    <ul class="list-media-side-small block">
+        {% for nextEvent in nextEvents %}
+            <li class="clearfix">
+                <a href="{{ path('event',{'slug':nextEvent['event'].slug})}}">
+                    <div class="image">
+                        {% set imagePath = nextEvent['event'].image.ImageThumbnail.getWebFilePath ~ '?' ~ random() %}
+                        <img src="{{asset(imagePath)}}">
+                    </div>
+                    <div class="text">
+                        <span class="date">
+                            {{ nextEvent['event'].getNextEventDateFromToday | date('d/m/Y') }}
+                        </span>
+                        <span class="title">
+                            {{ nextEvent['event'].title }}
+                        </span>
+                    </div>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>

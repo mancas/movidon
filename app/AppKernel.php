@@ -19,8 +19,11 @@ class AppKernel extends Kernel
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Movidon\FrontendBundle\FrontendBundle(),
             new Movidon\BackendBundle\BackendBundle(),
-            new Movidon\EventsBundle\EventsBundle(),
             new Movidon\BlogBundle\BlogBundle(),
+            new Movidon\EventBundle\EventBundle(),
+            new Movidon\LocationBundle\LocationBundle(),
+            new Movidon\ImageBundle\ImageBundle(),
+            new Ideup\SimplePaginatorBundle\IdeupSimplePaginatorBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

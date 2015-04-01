@@ -1,0 +1,7 @@
+get_cities:
+    pattern:  /get-cities
+    defaults: { _controller: LocationBundle:Location:getCities }
+
+get_addresses:
+    pattern: /get-addresses-by-user
+    defaults: { _controller: LocationBundle:Location:getAddresses }

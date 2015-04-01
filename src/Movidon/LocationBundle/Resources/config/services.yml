@@ -1,0 +1,7 @@
+parameters:
+    user.new_address_handler.class: Movidon\LocationBundle\Form\Handler\NewAddressHandler
+
+services:
+    user.new_address_handler:
+        class: %user.new_address_handler.class%
+        arguments: [@doctrine.orm.entity_manager]

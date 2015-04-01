@@ -1,0 +1,85 @@
+{% set action = app.request.attributes.get('_route') %}
+{% set params = app.request.attributes.get('_route_params') %}
+<div id="sidebar">
+    {#<div id="search">
+        <input type="text" placeholder="Search here..."/><button type="submit" class="tip-right" title="Search"><i class="fa fa-search"></i></button>
+    </div>#}
+    <ul>
+        <li class="{% if action == 'admin_index' %}active open{% endif %}">
+            <a href="{{ path('admin_index') }}"><i class="fa fa-home"></i> <span>{{ "Escritorio"|trans }}</span></a>
+        </li>
+        <li class="submenu {% if action == 'admin_event_index' or action == 'admin_event_create' or action == 'admin_event_edit' or action == 'admin_event_tag_index' or action == 'admin_event_tag_create' or action == 'admin_event_tag_edit' %}open{% endif %}">
+            <a href="#">
+                <i class="fa fa-calendar"></i>
+                <span>{{ "Calendario de eventos"|trans }}</span>
+                <i class="arrow fa fa-chevron-right"></i>
+            </a>
+            <ul>
+                <li {% if action == 'admin_event_index' %}class="active"{% endif %}><a href="{{ path('admin_event_index') }}">{{ "Eventos"|trans }}</a></li>
+                <li {% if action == 'admin_event_tag_index' %}class="active"{% endif %}><a href="{{ path('admin_event_tag_index') }}">{{ "Etiquetas"|trans }}</a></li>
+            </ul>
+        </li>
+        {#<li class="submenu {% if action == 'admin_category_index' or action == 'admin_category_create' or action == 'admin_category_edit' or action == 'admin_category_view'
+        or action == 'admin_subcategory_index' or action == 'admin_subcategory_create' or action == 'admin_subcategory_edit' or action == 'admin_subcategory_view' %}open{% endif %}">
+            <a href="#">
+                <i class="fa fa-folder-open"></i>
+                <span>{{ "Categorías"|trans }}</span>
+                <i class="arrow fa fa-chevron-right"></i>
+            </a>
+            <ul>
+                <li {% if action == 'admin_category_index' or action == 'admin_category_create' or action == 'admin_category_edit' or action == 'admin_category_view' %}class="active"{% endif %}>
+                    <a href="{{ path('admin_category_index') }}"><i class="fa fa-tag"></i><span>{{ "Categorías principales"|trans }}</span></a>
+                </li>
+                <li {% if action == 'admin_subcategory_index' or action == 'admin_subcategory_create' or action == 'admin_subcategory_edit' or action == 'admin_subcategory_view' %}class="active"{% endif %}>
+                    <a href="{{ path('admin_subcategory_index') }}"><i class="fa fa-tags"></i><span>{{ "Subcategorías"|trans }}</span></a>
+                </li>
+            </ul>
+        </li>
+        <li class="submenu {% if action == 'admin_item_index' or action == 'admin_item_create' or action == 'admin_item_edit' or action == 'admin_item_view'
+        or action == 'admin_item_package_index' or action == 'admin_item_package_create' or action == 'admin_item_package_edit' or action == 'admin_item_package_view' %}open{% endif %}">
+            <a href="#">
+                <i class="fa fa-cubes"></i>
+                <span>{{ "Productos"|trans }}</span>
+                <i class="arrow fa fa-chevron-right"></i>
+            </a>
+            <ul>
+                <li class="{% if action == 'admin_item_index' or action == 'admin_item_create' or action == 'admin_item_edit' %}active open{% endif %}">
+                    <a href="{{ path('admin_item_index') }}"><i class="fa fa-cube"></i> <span>{{ "Mis Productos"|trans }}</span></a>
+                </li>
+                <li class="{% if action == 'admin_item_package_index' or action == 'admin_item_package_create' or action == 'admin_item_package_edit' %}active open{% endif %}">
+                    <a href="{{ path('admin_item_package_index') }}"><i class="fa fa-archive"></i> <span>{{ "Tipos de paquete"|trans }}</span></a>
+                </li>
+            </ul>
+        </li>
+        <li class="submenu {% if action == 'admin_order_index' or action == 'admin_order_view' or action == 'admin_payment_index' or action == 'admin_bill_index' %}open{% endif %}">
+            <a href="#">
+                <i class="fa fa-file"></i>
+                <span>{{ "Ventas"|trans }}</span>
+                <i class="arrow fa fa-chevron-right"></i>
+            </a>
+            <ul>
+                <li {% if action == 'admin_order_index' or action == 'admin_order_view' %}class="active"{% endif %}>
+                    <a href="{{ path('admin_order_index') }}"><i class="fa fa-shopping-cart"></i><span>{{ "Pedidos"|trans }}</span></a>
+                </li>
+                <li {% if action == 'admin_payment_index' %}class="active"{% endif %}>
+                    <a href="{{ path('admin_payment_index') }}"><i class="fa fa-credit-card"></i><span>{{ "Pagos"|trans }}</span></a>
+                </li>
+                {#<li {% if action == 'admin_bill_index' %}class="active"{% endif %}>
+                    <a href=""><i class="fa fa-file-text-o"></i><span>{{ "Facturas"|trans }}</span></a>
+                </li>#}
+            {#</ul>
+        </li>
+        <li class="{% if action == 'admin_shipment_index' or action == 'admin_shipment_create' or action == 'admin_shipment_edit' %}active open{% endif %}">
+            <a href="{{ path('admin_shipment_index') }}"><i class="fa fa-truck"></i> <span>{{ "Opciones de envío"|trans }}</span></a>
+        </li>
+        <li class="{% if action == 'admin_bank_account_index' or action == 'admin_bank_account_create' or action == 'admin_bank_account_edit' %}active open{% endif %}">
+            <a href="{{ path('admin_bank_account_index') }}"><i class="fa fa-cc"></i> <span>{{ "Cuenta bancaria"|trans }}</span></a>
+        </li>
+        <li class="{% if action == 'admin_tax_index' or action == 'admin_tax_create' or action == 'admin_tax_edit' %}active open{% endif %}">
+            <a href="{{ path('admin_tax_index') }}"><i class="fa fa-gavel"></i> <span>{{ "Impuestos"|trans }}</span></a>
+        </li>#}
+        {#<li class="{% if action == 'admin_billing_settings_index' %}active open{% endif %}">
+            <a href="{{ path('admin_billing_settings_index') }}"><i class="fa fa-cogs"></i> <span>{{ "Datos de facturación"|trans }}</span></a>
+        </li>#}
+    </ul>
+</div>

@@ -1,0 +1,95 @@
+<script>
+    $(document).ready(function(){
+        var date = new Date();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear(),
+                event_info = $('#event-info');
+        getEvents(month, year);
+        addNavigationEventsClickEvent();
+
+        function getEvents(month, year) {
+            $.post('{{ path('get_events') }}', {'month': month, 'year' : year }, function(response){
+            	if (response.ok) {
+                    var dates = response.dates;
+
+                    for (key in dates) {
+                        var date = key;
+                        var events = dates[key];
+                        addEvents(date, events);
+                    }
+                }
+            });
+        }
+
+        function addEvents(date, events)
+        {
+            var eventRandom = Math.floor(Math.random() * events.length);
+            addEventMouseOver(events[eventRandom], date);
+            addEventMouseOut(events[eventRandom], date);
+            addEventClick(events[eventRandom], date);
+            addIcon(date);
+        }
+
+        function addEventMouseOver(event, date) {
+            $('td[data-date="'+ date +'"]').mouseover(function (e) {
+                $(this).addClass('txt-shadow');
+                $(this).css({'background-size' : 'cover', 'background-image' : "url(" + event.img + ")", 'color' : '#FFFFFF', 'cursor' : 'pointer'});
+            });
+        }
+
+        function addEventMouseOut(event, date) {
+            $('td[data-date="'+ date +'"]').mouseout(function (e) {
+                $(this).removeClass('txt-shadow');
+                $(this).css({'background-size' : 'cover', 'background-image' : "", 'color' : ''});
+            });
+        }
+
+        function addEventClick(event, date) {
+            var id = event.id;
+            $('td[data-date="'+ date +'"]').click(function (e) {
+                $.get('{{ path('get_event_detail') }}', {'id': id, 'date' : date }, function(response){
+                    $('#event-detail').html(response);
+                });
+            });
+        }
+
+        function addIcon(date) {
+            $('td[data-date="'+ date +'"]').children('div').prepend('<i class="fa fa-bookmark event-day"></i>');
+        }
+
+        $('.fc-button-next').click(function() {
+            var d = $('#events-calendar').fullCalendar('getDate');
+            getEvents(d.getMonth() + 1, d.getFullYear());
+        });
+
+        $('.fc-button-prev').click(function() {
+            var d = $('#events-calendar').fullCalendar('getDate');
+            getEvents(d.getMonth() + 1, d.getFullYear());
+        });
+
+        function addNavigationEventsClickEvent()
+        {
+            var next = $('#next-event'),
+                prev = $('#prev-event');
+
+            next.bind('click', function (event) {
+               event.preventDefault();
+                var path = $(this).attr('href');
+                var date = $('#event-date').attr('data-date');
+                $.get(path, {'date': date }, function(response){
+                    $('#event-detail').html(response);
+                });
+            });
+
+            prev.bind('click', function (event) {
+                event.preventDefault();
+                var path = $(this).attr('href');
+                var date = $('#event-date').attr('data-date');
+                $.get(path, {'date': date }, function(response){
+                    $('#event-detail').html(response);
+                });
+            });
+        }
+    });
+
+</script>

@@ -1,0 +1,60 @@
+<div class="col-md-4 col-sm-4 col-xs-12">
+    <ul class="list-unstyled">
+        {% if categories is defined and categories | length > 0 %}
+            <li class="title"><i class="fa fa-folder-open"></i> {{"Eventos por categoría" | trans }}</li>
+            {% for category in categories %}
+                <li><a href="{{ eventUrl(category.slug,null,null,null,year) }}" title="{{ "Eventos de %category% en %year%" | trans ({'%category%':category.name,'%year%': year}) }}">{{ category.name }} ({{ category.numberOfEvents }})</a></li>
+            {% endfor %}
+        {% endif %}
+
+        {% if provinces is defined and provinces | length > 0 %}
+            <li class="title"><i class="fa fa-globe"></i> {{"Eventos por provincia" | trans }}</li>
+            {% for province in provinces %}
+                <li><a href="{{ eventUrl(null, null, province.slug,null,year) }}" title="{{ "Eventos en provincia de %province% en %year%" |trans({'%province%':province.name,'%year%': year }) }}">{{ province.name }} ({{ province.numberOfEvents }})</a></li>
+            {% endfor %}
+        {% endif %}
+
+        {% if cities is defined and cities | length > 0 %}
+            <li class="title"><i class="fa fa-map-marker"></i> {{"Eventos por ciudad" | trans }}</li>
+            {% for city in cities %}
+                <li><a href="{{ eventUrl(null, null,null, city.slug, year) }}" title="{{ "Eventos en %city% en %year%" |trans({'%city%':city.name,'%year%': year }) }}">{{ city.name }} ({{ city.numberOfEvents }})</a></li>
+            {% endfor %}
+        {% endif %}
+
+        {% if eventsProvinceCategory is defined and eventsProvinceCategory | length > 0 %}
+            <li class="title"><i class="fa fa-map-marker"></i> {{"Eventos de %category% por provincia" | trans({'%category%':category.name}) }}</li>
+            {% for province in eventsProvinceCategory %}
+                <li><a href="{{ eventUrl(category.slug, null, province.slug, null, year) }}" title="{{ "Eventos de %category% en provincia de %province% en %year%" |trans({'%category%':category.name,'%province%':province.name,'%year%': year }) }}">{{ province.name }} ({{ province.numberOfEvents }})</a></li>
+            {% endfor %}
+        {% endif %}
+
+        {% if eventsCityCategory is defined and eventsCityCategory | length > 0 %}
+            <li class="title"><i class="fa fa-map-marker"></i> {{"Eventos de %category% por localidad" | trans({'%category%':category.name}) }}</li>
+            {% for city in eventsCityCategory %}
+                <li><a href="{{ eventUrl(category.slug,null, null, city.slug, year) }}" title="{{"Eventos de %category% en %city% en %year%" |trans({'%category%':category.name,'%city%': city.name,'%year%': year}) }}">{{ city.name }} ({{ city.numberOfEvents }})</a></li>
+            {% endfor %}
+        {% endif %}
+
+        {% if eventsCategoryProvinces is defined and eventsCategoryProvinces | length > 0 %}
+            <li class="title"><i class="fa fa-map-marker"></i> {{"Eventos de %category% en provincia de %province% por localidad" | trans({'%category%': category.name, '%province%': province.name}) }}</li>
+            {% for city in eventsCategoryProvinces %}
+                <li><a href="{{ eventUrl(category.slug, null, province.slug, city.slug, year) }}" title="{{ "Eventos de %category% en %city% en %year%"| trans({'%category%': category.name, '%city%': city.name,'%year%': year}) }}">{{ city.name }} ({{ city.numberOfEvents }})</a></li>
+            {% endfor %}
+        {% endif %}
+
+        {% if eventsCategoryFromProvinces is defined and eventsCategoryFromProvinces | length > 0 %}
+            <li class="title"><i class="fa fa-map-marker"></i> {{"Eventos por categoría en la provincia de %province%" | trans({'%province%':province.name}) }}</li>
+            {% if city %} {% set citySlug = city.slug %}{% else %} {% set citySlug = null %}{% endif %}
+            {% for category in eventsCategoryFromProvinces %}
+                <li><a href="{{ eventUrl(category.slug, null, province.slug, citySlug, year) }}" title="{{ "Eventos de %category% en provincia de %province% en %year%" | trans({'%category%':category.name,'%province%':province.name,'%year%': year}) }}">{{ category.name }} ({{ category.numberOfEvents }})</a></li>
+            {% endfor %}
+        {% endif %}
+
+        {% if eventsCityFromProvinces is defined and eventsCityFromProvinces | length > 0 %}
+            <li class="title"><i class="fa fa-map-marker"></i> {{"Eventos por localidad en la provincia de %province%" | trans({'%province%':province.name}) }}</li>
+            {% for city in eventsCityFromProvinces %}
+                <li><a href="{{ eventUrl(null, null, province.slug, city.slug, year) }}" title="{{ "Eventos en %city% en %year%" | trans({'%city%': city.name,'%year%': year}) }}">{{ city.name }} ({{ city.numberOfEvents }})</a></li>
+            {% endfor %}
+        {% endif %}
+    </ul>
+</div>

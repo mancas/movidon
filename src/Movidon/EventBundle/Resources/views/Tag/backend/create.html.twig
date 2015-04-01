@@ -1,0 +1,78 @@
+{% extends "BackendBundle:Layouts:2column.html.twig" %}
+{%  set edit = "Edición tag"|trans %}
+{%  set create = "Creación tag"|trans %}
+{% block title_section %}
+    {% if edition is defined %}
+        {{ edit }}
+    {% else %}
+        {{ create }}
+    {% endif %}
+{% endblock %}
+
+{% block breadcrumb %}
+    {% if edition is defined %}
+        {% set crumbs = {'Listado de tags':path('admin_event_tag_index'), 'Editar tag':''} %}
+    {% else %}
+        {% set crumbs = {'Listado de tags':path('admin_event_tag_index'), 'Crear tag':''} %}
+    {% endif %}
+    {{ setCrumbs(crumbs) }}
+    {{ parent() }}
+{% endblock %}
+
+{% block buttons_section %}
+<div class="btn-group">
+    <a href="{{ path('admin_event_tag_index') }}" title="{{"Listar registros" | trans}}" class="btn"><i class="fa fa-align-justify"></i></a>
+    <a href="{{ path('admin_event_tag_create') }}" title="{{"Añadir registro registro" | trans}}" class="btn"><i class="fa fa-plus"></i></a>
+</div>
+{% endblock %}
+
+{% block content %}
+
+    <div class="widget-box">
+        <div class="widget-title">
+            <span class="icon">
+                <i class="fa fa-pencil"></i>
+            </span>
+            {% if edition is defined %}
+                <h5>{{ edit }}</h5>
+            {% else %}
+                <h5>{{ create }}</h5>
+            {% endif %}
+        </div>
+        <div class="widget-content nopadding">
+            <form class="form-horizontal" role="form"
+                  action="{% if edition is defined %}{{ path('admin_event_tag_edit',{'id':tag.id}) }} {% else %} {{ path('admin_event_tag_create') }} {% endif %}"
+                  method="post" xmlns="http://www.w3.org/1999/html">
+
+                <div class="form-group">
+                    <label for="item_title" class="col-sm-2 control-label">
+                        <span class="red">*</span>
+                        {{ 'Nombre'|trans }}
+                        <a href="#" data-placement="right" class="cf-tooltip" data-toggle="tooltip" title="{{ "Nombre del tag"|trans }}"><span class="fa fa-question-sign"></span></a></label>
+                    </label>
+                    <div class="col-sm-10">
+                        {{ form_widget(form.name, { 'attr': { 'class': 'form-control required'} }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-sm-10">
+                        <button id="register" type="submit" class="btn btn-primary">
+                            {{ "Guardar cambios"|trans }}
+                        </button>
+                        <img style="display:none;" class="ml15 loader pull-lef" src="{{ asset('bundles/frontend/img/ajax-loader.gif') }}">
+                    </div>
+                    <p class="col-md-offset-2 col-sm-10 help-block">
+                        <span class="red">*</span> {{"Campos obligatorios" | trans }}
+                    </p>
+                </div>
+                {{ form_rest(form) }}
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

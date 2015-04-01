@@ -1,0 +1,101 @@
+{% extends "BackendBundle:Layouts:2column.html.twig" %}
+
+{% block title_section %}
+    {{ "Listado de events" | trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set crumbs = {'Listado de eventos':'#'} %}
+    {{ setCrumbs(crumbs) }}
+    {{ parent() }}
+{% endblock %}
+
+{% block buttons_section %}
+<div class="btn-group">
+    <a href="{{ path('admin_event_index') }}" title="{{"Listar registros" | trans}}" class="btn"><i class="fa fa-align-justify"></i></a>
+    <a href="{{ path('admin_event_create') }}" title="{{"Añadir registro registro" | trans}}" class="btn"><i class="fa fa-plus"></i></a>
+</div>
+{% endblock %}
+
+{% block content %}
+    <div class="widget-box">
+        <div class="widget-title">
+            <span class="icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <h5>{{ "Buscador"|trans }}</h5>
+        </div>
+        <div class="widget-content nopadding">
+            <form class="form-inline" role="form" action="{{ path('admin_event_index') }}" method="get">
+                <div class="form-group">
+                    {{ form_widget(form.title, {'attr':{'class':'', 'placeholder':'Título'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.category, {'attr':{'class':''}}) }}
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            {{ form_widget(form.notPublished) }}
+                            {{ form_label(form.notPublished, 'Ver sólo los pendientes de publicación') }}
+                        </label>
+                    </div>
+                    {{ form_rest(form) }}
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-default">{{ "Buscar"|trans }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    {% if events | length > 0 %}
+    <div class="widget-box">
+        <div class="widget-title">
+            <span class="icon">
+                <i class="fa fa-align-justify"></i>
+            </span>
+            <h5>{{ "Listado de Espacios"|trans }}</h5>
+        </div>
+        <div class="widget-content nopadding">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th style="text-align:left;width:80%;">{{ "Título"|trans }}</th>
+                        <th style="text-align:center;width:20%;">{{ "Acciones"|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for event in events %}
+                        <tr>
+                            <td>{{ event.title }}</td>
+                            <td style="text-align:center;">
+                                <a class="btn btn-primary btn-xs" href="{{ path('admin_event_edit', { 'id': event.id }) }}">{{"Editar" | trans}}</a>
+                                {% if event.published is null %}
+                                    <a class="btn btn-success btn-xs" href="{{ path('admin_event_publish', { 'id': event.id }) }}">{{"Publicar" | trans}}</a>
+                                {% endif %}
+                                <a class="btn btn-danger btn-xs delete" href="{{ path('admin_event_delete', { 'id': event.id }) }}">{{"Eliminar" | trans}}</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div>
+        {% if paginator is defined and paginator is not null %}
+            <ul class="pagination alternate pull-right">
+                {% set direccion = 'admin_event_index' %}
+                {% set routeParams =  app.request.query.all %}
+                {% include 'BackendBundle:Backend:paginatorBo.html.twig' %}
+            </ul>
+        {% endif %}
+    </div>
+    
+    {% else %}
+        <div class="alert alert-info mt">
+            <strong>{{"Información!" | trans }}</strong>
+            {{"No se ha encontrado ningún registro" | trans }}
+        </div>
+    {% endif %}
+{% endblock %}

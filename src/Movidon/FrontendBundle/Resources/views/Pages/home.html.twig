@@ -1,6 +1,6 @@
-{% extends "FrontendBundle:Layouts:2columns.html.twig" %}
+{% extends 'FrontendBundle::base.html.twig' %}
 
-{% block title %}{{ "El Cartujano Returns"|trans }}{% endblock %}
+{% block title %}{{ "MOVERS by FUE"|trans }}{% endblock %}
 {% block description %}{{"Una tienda que vende pulseras"|trans}}{% endblock %}
 {% block sectionclass %}home page{% endblock %}
 
@@ -12,48 +12,17 @@
     {{ parent() }}
 {% endblock %}
 
-{% block content %}
-    <h1 class="title">
-        {{ 'El Cartujano' | trans }}
-    </h1>
-
-    <p>
-        {{ 'Desde el año 2004, la empresa EL CARTUJANO se dedica a la distribución de una amplia gama de productos de panadería y pastelería industrial de la más alta calidad.' | trans }}
-    </p>
-
-    <p>
-        {{ 'Con más de 15 años de experiencia en el sector, Antonio Jiménez Pineda, gerente de la firma, se encarga de satisfacer las necesidades de sus clientes con los mejores productos del mercado.' | trans }}
-    </p>
-
-    <p>
-        {{ 'EL CARTUJANO cuenta con dos grandes grupos de productos: los que comercializa con su propia marca y la distribución de productos de otros fabricantes. En producción pueden distinguirse los productos de panadería (destacando los picos), las patatas fritas y, por supuesto, la pastelería industrial (pestiños, cortadillos, piñonates, bizcochos, magdalenas...) ' | trans }}
-    </p>
-
-    <h1 class="title">{{ 'Selección de productos' | trans }}</h1>
-
-    <p>
-        {{ 'EL CARTUJANO selecciona los mejores productos atendiendo a la calidad y sin olvidar el precio. Una vez elegidos, los productos son envasados con su propia marca. En la actualidad cuenta con más de 30 proveedores. ' | trans }}
-    </p>
-
-    <p>
-        {{ 'La empresa trata de cubrir así las necesidades y exigencias del mercado. Con una continua innovación y búsqueda de nuevos productos que satisfagan las necesidades de todos sus clientes. ' | trans }}
-    </p>
-
-    <h1 class="title">{{ 'Calidad y servicio' | trans }}</h1>
-
-    <p>
-        {{ 'EL CARTUJANO se ha convertido en una empresa de referencia en el sector de la distribución de la panadería y pastelería industrial. Su espíritu emprendedor y su constancia han hecho que se convierta en una empresa en constante progresión. ' | trans }}
-    </p>
-
-    <p>
-        {{ 'Y todo ello gracias no sólo a la calidad de sus productos sino al servicio que ofrecen a sus clientes. Un gran esfuerzo empresarial y humano, que destaca la seriedad, responsabilidad y profesionalidad, y que han convertido a la firma EL CARTUJANO en una empresa ampliamente reconocida por sus clientes y proveedores, que día a día depositan en ella su confianza. ' | trans }}
-    </p>
-{% endblock %}
-
-
-{% block sidebar %}
-    <img class="polaroid img-responsive" src="{{ asset('bundles/frontend/img/cartujano-nave.jpg') }}" alt="{{ 'Nave de El Cartujano' | trans }}">
-    <img class="polaroid img-responsive" src="{{ asset('bundles/frontend/img/cartujano-almacen.jpg') }}" alt="{{ 'Almacén de El Cartujano' | trans }}">
+{% block body %}
+    <section id="banner-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 wrapper">
+                    <h3>Be a <strong class="red">MOVER</strong></h3>
+                    <h3><strong class="red">MOVE</strong> the world</h3>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}
 
 {% block javascripts %}

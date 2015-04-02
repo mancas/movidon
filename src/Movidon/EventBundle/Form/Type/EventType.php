@@ -14,7 +14,7 @@ class EventType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('title', 'text');
-        $builder->add('dateOfEvent', 'date');
+        $builder->add('dateOfEvent', 'text');
         $builder->add('content', 'textarea', array('attr' => array('class' => 'tinymce', 'data-theme' => 'advanced')));
         $builder->add('tags', 'entity',
             array('class' => 'EventBundle:Tag',
@@ -23,13 +23,6 @@ class EventType extends AbstractType
                 'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('t')->orderBy('t.name', 'ASC');
                     }, 'expanded' => false));
-        $builder->add('category', 'entity',
-                array('class' => 'CategoryBundle:EventCategory',
-                        'empty_value' => 'Selecciona una categoría',
-                        'required' => true,
-                        'query_builder' => function (EntityRepository $er) {
-                            return $er->createQueryBuilder('c')->orderBy('c.name', 'ASC');
-                        }));
     }
 
     public function getDefaultOptions(array $options)

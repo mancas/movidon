@@ -3,3 +3,10 @@ services:
         class: Movidon\FrontendBundle\Twig\Extension\JavaScriptExtension
         tags:
             - { name: twig.extension }
+
+    twig.extension.ajax:
+            class: Movidon\FrontendBundle\Twig\Extension\AjaxExtension
+            arguments:
+                container: @service_container
+            tags:
+                - { name: twig.extension }

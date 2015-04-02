@@ -19,7 +19,7 @@ class ImageEvent extends Image
     protected $maxHeight = self::MAX_HEIGHT;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Movidon\EventBundle\Entity\Event", inversedBy="images")
+     * @ORM\OneToOne(targetEntity="Movidon\EventBundle\Entity\Event", inversedBy="image")
      */
     protected $event;
 

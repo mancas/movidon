@@ -1,18 +1,18 @@
 admin_event_tag_index:
     pattern: /tags
-    defaults: { _controller: BackendBundle:Tag:index }
+    defaults: { _controller: BackendBundle:EventTag:index }
 
 admin_event_tag_create:
     pattern: /tags/create
-    defaults: { _controller: BackendBundle:Tag:create }
+    defaults: { _controller: BackendBundle:EventTag:create }
 
 admin_event_tag_edit:
     pattern: /tags/edit/{id}
-    defaults: { _controller: BackendBundle:Tag:edit }
+    defaults: { _controller: BackendBundle:EventTag:edit }
 
 admin_event_tag_delete:
     pattern: /tags/delete/{id}
-    defaults: { _controller: BackendBundle:Tag:delete }
+    defaults: { _controller: BackendBundle:EventTag:delete }
 
 admin_event_index:
     pattern: /events

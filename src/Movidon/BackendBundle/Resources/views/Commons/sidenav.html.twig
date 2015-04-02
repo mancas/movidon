@@ -15,8 +15,8 @@
                 <i class="arrow fa fa-chevron-right"></i>
             </a>
             <ul>
-                <li {% if action == 'admin_event_index' %}class="active"{% endif %}><a href="{{ path('admin_event_index') }}">{{ "Eventos"|trans }}</a></li>
-                <li {% if action == 'admin_event_tag_index' %}class="active"{% endif %}><a href="{{ path('admin_event_tag_index') }}">{{ "Etiquetas"|trans }}</a></li>
+                <li {% if action == 'admin_event_index' or action == 'admin_event_create' or action == 'admin_event_edit' %}class="active"{% endif %}><a href="{{ path('admin_event_index') }}">{{ "Eventos"|trans }}</a></li>
+                <li {% if action == 'admin_event_tag_index' or action == 'admin_event_tag_create' or action == 'admin_event_tag_edit' %}class="active"{% endif %}><a href="{{ path('admin_event_tag_index') }}">{{ "Etiquetas"|trans }}</a></li>
             </ul>
         </li>
         {#<li class="submenu {% if action == 'admin_category_index' or action == 'admin_category_create' or action == 'admin_category_edit' or action == 'admin_category_view'

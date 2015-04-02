@@ -26,7 +26,8 @@
         "gedmo/doctrine-extensions":      "dev-master",
         "raulfraile/ladybug-bundle": "~1.0",
         "ideup/simple-paginator-bundle":"dev-master",
-        "symfony/finder": "dev-master"
+        "symfony/finder": "dev-master",
+        "stfalcon/tinymce-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

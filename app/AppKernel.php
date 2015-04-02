@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new Movidon\LocationBundle\LocationBundle(),
             new Movidon\ImageBundle\ImageBundle(),
             new Ideup\SimplePaginatorBundle\IdeupSimplePaginatorBundle(),
+            new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

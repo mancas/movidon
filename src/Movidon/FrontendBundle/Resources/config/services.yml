@@ -1,4 +1,16 @@
+imports:
+    - { resource: "../../../../../app/config/parameters.yml" }
+
+parameters:
+    tag.createformhandler.class: Movidon\FrontendBundle\Form\Handler\CreateTagFormHandler
+    tag.manager.class: Movidon\FrontendBundle\Form\Handler\TagManager
+
 services:
-#    frontend.example:
-#        class: Movidon\FrontendBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    tag.manager:
+        class: %tag.manager.class%
+        arguments: [@doctrine.orm.entity_manager]
+    tag.create_tag_form_handler:
+        class: %tag.createformhandler.class%
+        arguments: [@tag.manager]
+
+

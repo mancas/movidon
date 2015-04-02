@@ -41,12 +41,6 @@ class Address
     protected $slug;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Movidon\UserBundle\Entity\User", inversedBy="addresses")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     */
-    protected $user;
-
-    /**
      * @ORM\Column(type="boolean", nullable=true, options={"default" = 0})
      */
     protected $main = false;
@@ -82,11 +76,6 @@ class Address
     protected $postalCode;
 
     /**
-     * @ORM\OneToOne(targetEntity="Movidon\PaymentBundle\Entity\DataBilling", inversedBy="address")
-     */
-    protected $dataBilling;
-
-    /**
      * @param mixed $address
      */
     public function setAddress($address)
@@ -102,17 +91,11 @@ class Address
         return $this->address;
     }
 
-    /**
-     * @param \Movidon\UserBundle\Entity\date $created
-     */
     public function setCreated($created)
     {
         $this->created = $created;
     }
 
-    /**
-     * @return \Movidon\UserBundle\Entity\date
-     */
     public function getCreated()
     {
         return $this->created;
@@ -183,22 +166,6 @@ class Address
     }
 
     /**
-     * @param mixed $user
-     */
-    public function setUser($user)
-    {
-        $this->user = $user;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
      * @param mixed $main
      */
     public function setMain($main)
@@ -265,22 +232,6 @@ class Address
     public function getSlug()
     {
         return $this->slug;
-    }
-
-    /**
-     * @param mixed $dataBilling
-     */
-    public function setDataBilling($dataBilling)
-    {
-        $this->dataBilling = $dataBilling;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDataBilling()
-    {
-        return $this->dataBilling;
     }
 
 }

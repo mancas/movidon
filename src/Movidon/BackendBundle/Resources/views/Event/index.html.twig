@@ -1,12 +1,10 @@
-{% extends "BackendBundle:Layouts:2column.html.twig" %}
+{% extends "BackendBundle:Layouts:2columns.html.twig" %}
 
 {% block title_section %}
-    {{ "Listado de events" | trans }}
+    {{ "Listado de eventos" | trans }}
 {% endblock %}
 
 {% block breadcrumb %}
-    {% set crumbs = {'Listado de eventos':'#'} %}
-    {{ setCrumbs(crumbs) }}
     {{ parent() }}
 {% endblock %}
 

@@ -1,10 +1,10 @@
-{% extends "BackendBundle:Layouts:2column.html.twig" %}
+{% extends "BackendBundle:Layouts:2columns.html.twig" %}
 {%  set edit = "Edición de evento"|trans %}
 {%  set create = "Creación de evento"|trans %}
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('bundles/frontend/css/datepicker/datepicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/backend/css/datepicker.css') }}">
 {% endblock %}
 {% block title_section %}
     {% if edition is defined %}
@@ -12,17 +12,6 @@
     {% else %}
         {{ create }}
     {% endif %}
-{% endblock %}
-
-{% block breadcrumb %}
-    {% if edition is defined %}
-        {% set crumbs = {'Listado de events':path('admin_event_index'), 'Editar evento':''} %}
-    {% else %}
-        {% set crumbs = {'Listado de events':path('admin_event_index'), 'Crear evento':''} %}
-    {% endif %}
-
-    {{ setCrumbs(crumbs) }}
-    {{ parent() }}
 {% endblock %}
 
 {% block buttons_section %}
@@ -48,7 +37,7 @@
             <form class="form-horizontal" id="form-create-event" role="form"
                 action="{% if edition is defined %}{{ path('admin_event_edit',{'id':event.id}) }} {% else %} {{ path('admin_event_create') }} {% endif %}"
                 method="post" {{ form_enctype(formImage) }}>
-                {% include 'EventBundle:Event:backend/form-event.html.twig' %}
+                {% include 'BackendBundle:Event:form-event.html.twig' %}
 
                 <div class="form-group">
                     <label for="event_image" class="col-sm-2 control-label"> <span class="red">*</span> {{ 'Imagen'|trans }}</label>
@@ -64,7 +53,7 @@
                     </div>
                     {% endif %}  
                     <div class="col-sm-10 col-sm-offset-2">
-                        {{ form_widget(formImage.file) }} {#, {'attr': {'style':'display:none;'}}) }}#}
+                        {{ form_widget(formImage.image) }} {#, {'attr': {'style':'display:none;'}}) }}#}
                     </div>
                 </div>
 
@@ -74,7 +63,7 @@
                         <button type="submit" class="btn btn-primary">
                             {% if edition is defined %}{{ "Guardar"|trans }} {% else %}{{ "Crear"|trans }}{% endif %}
                         </button>
-                        <img style="display:none;" class="ml15 loader pull-lef" src="{{ asset('bundles/frontend/img/ajax-loader.gif') }}">
+                        <img style="display:none;" class="ml15 loader pull-lef" src="{{ asset('bundles/backend/img/ajax-loader.gif') }}">
                     </div>
                 </div>
             </form>
@@ -83,14 +72,14 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('bundles/frontend/js/datepicker/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('bundles/backend/js/bootstrap-datepicker.js') }}"></script>
     <script>
         function tinymce_button_strong(ed) {
             var theText = ed.selection.getContent();
             ed.selection.setContent('<span class=\'bold\' style=\'font-weight: bold; \'>'+theText+'</span>');
         }
 
-        {{ updateSelectContentDynamically('#p', path('get_cities_slug'), '#l') }}
+        {{ updateSelectContentDynamically('#p', path('get_cities'), '#l') }}
         $(document).ready(function(){
             $('.datepicker').datepicker(
             {
@@ -105,38 +94,11 @@
                     }
                 );
             });
-            $('body').on('changeDate', ".datepicker", function () {
-                var datep = $(this);
-                var dateFrom = $(this).closest('.date-from');
-                var dateTo = dateFrom.next('.date-to');
-                dateTo.show();
-                var dateTo = $(this).closest('.date-to');
-                var dateDay = dateTo.next('.date-days');
-                var prev = dateTo.prev('.date-from');
-                dateDay.show();
-                dateTo.children().children().attr('required', 'required');
-                prev.children().children().attr('required', 'required');
-            });
-
-            $("#create_date").click(function (e) {
-                e.preventDefault();
-                $("#event_dates_container").show();
-                $("#event_dates_container").append('<div class="form-group"><label for="event_dates" class="col-sm-2 control-label">{{ 'Añadir día'|trans }}</label><div class="col-sm-3"><div class="input-group"><input id="event_dates" class="form-control datepicker" type="text" autocomplete="off" required="required" name="event_dates[]"></input><span class="input-group-addon input-group-addon-click"><i class="fa fa-calendar"></i></span><span class="input-group-addon remove_event_date"><i class="fa fa-trash-o"></i></span></div></div></div>');
-            });
-            $("#create_period").click(function (e) {
-                e.preventDefault();
-                $("#periods_container").show();
-                $("#periods_container").append('<div class="form-group"><label for="periodo" class="col-sm-2 control-label"> {{ 'Periodo:'|trans }}</label><div class="col-sm-10"><div class="row"><div class="col-sm-4 date-from"><div class="input-group"><input id="periodo_from" class="form-control datepicker" type="text" autocomplete="off" name="periodos[]" value=""/><span class="input-group-addon input-group-addon-click"><i class="fa fa-calendar"></i></span><span class="input-group-addon remove_event_date"><i class="fa fa-trash-o"></i></span></div></div><div class="col-sm-4 date-to" style="display:none;"><div class="input-group"><input id="periodo_to" class="form-control datepicker" type="text" autocomplete="off" name="periodos[]" value=""/><span class="input-group-addon input-group-addon-click"><i class="fa fa-calendar"></i></span><span class="input-group-addon remove_event_date"><i class="fa fa-trash-o"></i></span></div></div><div class="col-sm-12 date-days" style="display:none; margin:20px 0px;"><input type="checkbox" name="periodos[]" value="1"> <span style="margin-right:20px;">{{ "Lunes"|trans }}</span><input type="checkbox" name="periodos[]" value="2"> <span style="margin-right:20px;">{{ "Martes"|trans }}</span><input type="checkbox" name="periodos[]" value="3"> <span style="margin-right:20px;">{{ "Miércoles"|trans }}</span><input type="checkbox" name="periodos[]" value="4"> <span style="margin-right:20px;">{{ "Jueves"|trans }}</span><input type="checkbox" name="periodos[]" value="5"> <span style="margin-right:20px;">{{ "Viernes"|trans }}</span><input type="checkbox" name="periodos[]" value="6"> <span style="margin-right:20px;">{{ "Sábado"|trans }}</span><input type="checkbox" name="periodos[]" value="7"> <span style="margin-right:20px;">{{ "Domingo"|trans }}</span></div></div></div></div>');
-            });
-            $('body').on('click', '.remove_event_date', function(){
-                $(this).closest('.form-group').remove();
-            });
         });
     </script>
-    <script src="{{ asset('bundles/frontend/js/select2/select2.min.js') }}"></script>
-    <script src="{{ asset('bundles/backend/js/jquery.validate.js') }}"></script>
+    <script src="{{ asset('bundles/backend/js/select2.min.js') }}"></script>
     <script>
-        {# prettyImageForm('#form-create-event') #}
+        $('.select2').select2();
     </script>
     {{ tinymce_init() }}
 {% endblock %}

@@ -1,13 +1,7 @@
-{% extends "BackendBundle:Layouts:2column.html.twig" %}
+{% extends "BackendBundle:Layouts:2columns.html.twig" %}
 
 {% block title_section %}
     {{ "Listado de tags" | trans }}
-{% endblock %}
-
-{% block breadcrumb %}
-    {% set crumbs = {'Listado de tags':'#'} %}
-    {{ setCrumbs(crumbs) }}
-    {{ parent() }}
 {% endblock %}
 
 {% block buttons_section %}

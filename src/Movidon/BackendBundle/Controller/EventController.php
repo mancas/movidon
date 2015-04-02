@@ -45,8 +45,7 @@ class EventController extends CustomController
 
         return $this->render('BackendBundle:Event:create.html.twig', array('form' => $form->createView(),
             'formImage' => $formImage->createView(),
-            'provinces' => $provinces,
-            'cities' => array()));
+            'provinces' => $provinces));
     }
 
     /**

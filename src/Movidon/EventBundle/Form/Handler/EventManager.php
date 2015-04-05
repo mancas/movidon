@@ -19,7 +19,7 @@ class EventManager
     public function save(Event $event, $city)
     {
         if ($city) {
-            $eventCity = $this->entityManager->getRepository('LocationBundle:City')->findOneBySlug($city);
+            $eventCity = $this->entityManager->getRepository('LocationBundle:City')->findOneById($city);
             $event->setCity($eventCity);
         }
         $this->entityManager->persist($event);

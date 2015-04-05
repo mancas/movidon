@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 abstract class Image
 {
     const WEB_PATH = 'bundles/frontend/img/';
-    const UPLOAD_PATH = '/var/www/movidon/web/uploads/';
+    const UPLOAD_PATH = '/var/www/html/movidon/web/uploads/';
     const ERROR_MESSAGE = "Ha ocurrido un error. Asegúrate de subir imágenes JPG o PNG de menos de 2 megas y mayores a 640x480.";
     const INFO_MESSAGE = "El formato de las imágenes ha de ser JPG o PNG, deben pesar menos de 2 megas y ser mayores a 640x480.";
     const AJAX_LOADER = 'bundles/frontend/img/ajax-loader.gif';

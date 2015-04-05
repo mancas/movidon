@@ -28,6 +28,7 @@ class EventRepository extends CustomEntityRepository
 
     public function findEventDQL(SearchEvent $data, $limit = null)
     {
+        ldd('here');
         $qb = $this->createQueryBuilder('e');
         $qb->select('e','i');
     
@@ -83,7 +84,7 @@ class EventRepository extends CustomEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function findNextEventsFromDate($date = null, $limit = null, $groupBy = null, $event = null)
+    public function findNextEventsFromDate($date = null, $limit = null, $groupBy = null)
     {
         $qb = $this->createQueryBuilder('e');
 
@@ -95,18 +96,14 @@ class EventRepository extends CustomEntityRepository
             }
         }
 
-        $qb->leftJoin('e.eventDates', 'eventDateSub');
-        $qb->addOrderBy('eventDateSub.date', 'ASC');
+        $qb->addOrderBy('e.dateOfEvent', 'ASC');
         if ($groupBy) {
             $qb->addGroupBy('e');
         }
-        $qb->select('e as event', 'eventDateSub.date');
+        $qb->select('e');
         $and = $qb->expr()->andx();
         $and->add($qb->expr()->isNotNull('e.published'));
-        $qb->where($qb->expr()->gt('eventDateSub.date', '\''.$date->format('Y-m-d H:i:s').'\''));
-        if ($event) {
-            $and->add($qb->expr()->neq('e.id',$event->getId()));
-        }
+        $qb->where($qb->expr()->gte('e.dateOfEvent', '\''.$date->format('Y-m-d H:i:s').'\''));
         $qb->andwhere($and);
 
         if (isset($limit))

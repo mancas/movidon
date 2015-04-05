@@ -81,13 +81,13 @@
         </div>
     </div>
     <div>
-        {% if paginator is defined and paginator is not null %}
+        {#{% if paginator is defined and paginator is not null %}
             <ul class="pagination alternate pull-right">
                 {% set direccion = 'admin_event_index' %}
                 {% set routeParams =  app.request.query.all %}
                 {% include 'BackendBundle:Backend:paginatorBo.html.twig' %}
             </ul>
-        {% endif %}
+        {% endif %}#}
     </div>
     
     {% else %}

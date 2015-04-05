@@ -2,6 +2,7 @@
 
 namespace Movidon\ImageBundle\Form\Handler;
 
+use Movidon\ImageBundle\Entity\ImageEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\FormInterface;
 use Movidon\ImageBundle\Form\Handler\ImageManager;
@@ -18,7 +19,6 @@ class CreateImageFormHandler
     public function __construct(ImageManager $imageManager, RecursiveValidator $validator)
     {
         $this->imageManager = $imageManager;
-        // TODO: new custom validator
         $this->validator = $validator;
     }
 
@@ -40,6 +40,40 @@ class CreateImageFormHandler
                     return false;
                 }
 
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function handleToEvent(FormInterface $form, Request $request, Event $event)
+    {
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
+            $data = $form->getData();
+            $file = $data['image'];
+            if ($data['image']) {
+                $imageConstraint = new \Symfony\Component\Validator\Constraints\Image();
+                $imageConstraint->maxSizeMessage = Image::ERROR_MESSAGE;
+                //$imageConstraint->maxSize = Image::MAX_SIZE;
+                $errorList = $this->validator->validateValue($file, $imageConstraint);
+                if (count($errorList) == 0) {
+                    if (!$event->getImage()) {
+                        $image = new ImageEvent();
+                        $image->setEvent($event);
+                        $image->setFile($file);
+                        $this->imageManager->saveImage($image);
+                    } else {
+                        $image = $event->getImage();
+                        $image->setFile($file);
+                    }
+                    $this->imageManager->createImage($image);
+                } else {
+                    return false;
+                }
+                return true;
+            } else {
                 return true;
             }
         }

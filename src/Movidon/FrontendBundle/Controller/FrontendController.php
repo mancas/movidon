@@ -11,6 +11,12 @@ class FrontendController extends CustomController
 
     public function indexAction()
     {
-        return $this->render('FrontendBundle:Pages:home.html.twig');
+        $em = $this->getEntityManager();
+        $nextEvents = $em->getRepository('EventBundle:Event')->findNextEventsFromDate(new \DateTime('now'), 1);
+        $firstEvent = null;
+        if (count($nextEvents) > 0) {
+            $firstEvent = $nextEvents[0];
+        }
+        return $this->render('FrontendBundle:Pages:home.html.twig', array('event' => $firstEvent));
     }
 }

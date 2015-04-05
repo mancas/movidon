@@ -7,7 +7,7 @@ use Symfony\Component\Yaml\Dumper;
 
 class FileHelper
 {
-    const PATH = "/var/www/html/cartujano/web/uploads";
+    const PATH = "/var/www/html/movidon/web/uploads";
     const TMP_IMAGE_PATH = "/tmp/";
     const TMP_IMAGE_NAME = "fetched_image.jpg";
 

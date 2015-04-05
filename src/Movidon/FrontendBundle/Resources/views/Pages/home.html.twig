@@ -23,10 +23,41 @@
             </div>
         </div>
     </section>
+    {% if event is not null %}
+    <section id="calendar" class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="section-title">{{"Calendario de Pop-up Stores" | trans }}</h3>
+                    <h4 class="section-description">{{"En nuestro calendario de eventos podrás estar al día de la actualidad 'Pop-Up'" | trans }}</h4>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-8">
+                    {% include 'EventBundle:Event:commons/events-calendar.html.twig' %}
+                </div>
+
+                <div class="col-md-4 calendar-detail">
+                    <div id="event-detail">
+                        {% include 'EventBundle:Event:event-detail.html.twig' %}
+                    </div>
+
+                    <ul class="calendar-navigation list-unstyled">
+                        <li><a id="prev-event" href="{{ path('get_prev_event') }}" title="{{ 'Evento anterior' | trans }}" class="fa fa-chevron-left"></a></li>
+                        <li><a id="next-event" href="{{ path('get_next_event') }}" title="{{ 'Evento próximo' | trans }}" class="fa fa-chevron-right"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
+    {% include 'EventBundle:Event:commons/events-script-home.html.twig' %}
 {% endblock %}
 
 {% block footer %}

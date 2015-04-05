@@ -9,8 +9,6 @@ use Movidon\FrontendBundle\Util\ArrayHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
-use Movidon\FrontendBundle\Util\Paginator;
-use Movidon\BlogBundle\Util\ArchiveDate;
 use Movidon\EventBundle\Util\SearchHelpers\SearchEvent;
 
 class EventFrontController extends CustomController

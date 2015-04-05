@@ -30,10 +30,8 @@ class EventController extends CustomController
         $formImage = $this->createForm(new ImageType());
         $provinces = $this->getEntityManager()->getRepository('LocationBundle:Province')->findAll();
         $formHandler = $this->get('event.create_event_form_handler');
-        //$dates['eventDates'] = $request->get('event_dates');
-        //$dates['periods'] = $request->get('periodos');
         if ($formHandler->handle($form, $request)) {
-            $formImgHandler = $this->get('image.create_image_form_handler');
+            $formImgHandler = $this->get('image.form_handler');
             if ($formImgHandler->handleToEvent($formImage, $request, $event)) {
                 $this->setTranslatedFlashMessage("Evento creado");
             } else {
@@ -51,12 +49,11 @@ class EventController extends CustomController
     /**
      * @ParamConverter("$event", class="EventBundle:Event")
      */
-    public function editAction(Event $event)
+    public function editAction(Event $event, Request $request)
     {
         $form = $this->createForm(new EventType(), $event);
         $formHandler = $this->get('event.create_event_form_handler');
         $formImage = $this->createForm(new ImageNotRequiredType());
-        $request = $this->getRequest();
         $provinces = $this->getEntityManager()->getRepository('LocationBundle:Province')->findAll();
         $cities = array();
         $province = null;
@@ -64,11 +61,9 @@ class EventController extends CustomController
             $province = $event->getCity()->getProvince();
             $cities = $this->getEntityManager()->getRepository('LocationBundle:City')->findBy(array('province' => $province));
         }
-        $dates['eventDates'] = $request->get('event_dates');
-        $dates['periods'] = $request->get('periodos');
-        if ($formHandler->handle($form, $request, $this->get('security.context')->getToken()->getUser(), $dates)) {
-            $formImgHandler = $this->get('image.create_image_form_handler');
-            if (array_key_exists('file', $request->files->get('image'))) {
+        if ($formHandler->handle($form, $request)) {
+            $formImgHandler = $this->get('image.form_handler');
+            if (array_key_exists('image', $request->files->get('image'))) {
                 if ($formImgHandler->handleToEvent($formImage, $request, $event)) {
                     $this->setTranslatedFlashMessage("Evento editado");
                 } else {
@@ -79,7 +74,7 @@ class EventController extends CustomController
             return $this->redirect($this->generateUrl('admin_event_index'));
         }
 
-        return $this->render('EventBundle:Event:backend/create.html.twig',
+        return $this->render('BackendBundle:Event:create.html.twig',
             array('form' => $form->createView(), 'formImage' => $formImage->createView(),
                 'event' => $event,
                 'edition' => true,

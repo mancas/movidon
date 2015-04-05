@@ -24,8 +24,8 @@ class CreateEventFormHandler
             if ($form->isValid()) {
                 $event = $form->getData();
                 $city = $request->request->get('l');
+                $event->setDateOfEvent(new \DateTime($request->request->get('dateOfEvent')));
                 $this->eventManager->save($event, $city);
-
                 return true;
             }
         }
